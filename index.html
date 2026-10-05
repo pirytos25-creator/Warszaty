@@ -1,0 +1,1273 @@
+<!doctype html>
+<!--
+NOTATKA DLA KOLEJNEGO EDYTORA
+- Treść, liczby i obiekt DATA pozostają bez zmian względem pliku „Tony bez adresu.html”.
+- Wersja graficzna dodaje wyłącznie własne inline SVG: zwierzęta, flagi, ilustracje rozdziałów i piktogramy ciężarówek.
+- Zachowano dotychczasowe identyfikatory oraz dodano kotwice #spis, #r1–#r8, #slowniczek i #zrodla wymagane w briefie.
+- Kolory nowych elementów są zmiennymi CSS powtórzonymi dla obu wariantów ciemnych; animacje respektują prefers-reduced-motion.
+- Model 3D ma poprawione światło, miękkie cienie i zaokrąglone kostki. Nie zmieniaj nazw istniejących funkcji JS.
+-->
+<html lang="pl"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover"></head><body>
+<title>Tony bez adresu</title>
+<meta name="description" content="Antybiotyki u zwierząt gospodarskich: sprzedaż kontra zużycie w Polsce, Niemczech, Holandii i Francji. Analiza materiałów z pendrive'a.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@600;800;900&family=Newsreader:ital,opsz,wght@0,6..72,400;0,6..72,500;0,6..72,600;1,6..72,400&family=IBM+Plex+Mono:wght@400;500;600&display=swap">
+<style>
+:root{
+  --reader-size:18px;
+  --paper:#f3f5f2; --paper-2:#e9eee9; --card:#fbfcfa; --ink:#13202a; --ink-2:#3d4c55; --muted:#65757d; --rule:#d3dbd6; --rule-2:#bcc7c1;
+  --hl:#f4e65a; --hl-ink:#13202a;
+  --pl:#eb6834; --de:#2a78d6; --nl:#1baf7a; --fr:#eda100; --eu:#7c8a91;
+  --good:#1d7f47; --warn:#a86a07; --bad:#b8352a;
+  --good-bg:#e1f1e6; --warn-bg:#f8ecd2; --bad-bg:#f7dfdb;
+  --cube-base:#9fb0b6; --cube-grid:#c9d3cf;
+  --navy:#07528b; --navy-deep:#063d69; --navy-soft:#dceefa; --sky:#a9dcff; --farm:#d8ead5;
+  --animal-cow:#1263a4; --animal-pig:#ef6f94; --animal-chicken:#f3aa18; --animal-turkey:#7d3d94;
+  --flag-ring:#d5dde2; --section-ink:#ffffff; --illustration-line:#0b4775;
+  --flag-white:#ffffff; --flag-black:#161616; --flag-red:#dd1936; --flag-gold:#f2c500; --flag-blue:#164a96; --flag-eu:#17479e;
+  --shadow:0 1px 0 rgba(19,32,42,.06),0 8px 24px -12px rgba(19,32,42,.22);
+  --f-disp:"Big Shoulders Display","Arial Narrow","Roboto Condensed",Impact,sans-serif;
+  --f-body:"Newsreader",Georgia,"Times New Roman",serif;
+  --f-mono:"IBM Plex Mono",ui-monospace,"SFMono-Regular",Menlo,Consolas,monospace;
+}
+@media (prefers-color-scheme:dark){
+  :root:not([data-theme="light"]){
+    color-scheme:dark;
+    --paper:#10181d; --paper-2:#16222a; --card:#18252d; --ink:#e4ebe7; --ink-2:#b9c6c1; --muted:#8c9c98; --rule:#2a3a42; --rule-2:#3a4c55;
+    --hl:#6d6414; --hl-ink:#fff6b0;
+    --pl:#d95926; --de:#3987e5; --nl:#199e70; --fr:#c98500; --eu:#8c9a9f;
+    --good:#4fbf7f; --warn:#e0a53a; --bad:#ef7a6c;
+    --good-bg:#15301f; --warn-bg:#352a12; --bad-bg:#3a1c18;
+    --cube-base:#4f6169; --cube-grid:#23323a;
+    --navy:#176ca7; --navy-deep:#0b3857; --navy-soft:#17364a; --sky:#317aa7; --farm:#254332;
+    --animal-cow:#5ba8e5; --animal-pig:#f48eaa; --animal-chicken:#ffc34d; --animal-turkey:#bd7bd1;
+    --flag-ring:#60737d; --section-ink:#ffffff; --illustration-line:#b7ddf5;
+    --flag-white:#ffffff; --flag-black:#161616; --flag-red:#e3324c; --flag-gold:#ffd226; --flag-blue:#2c64b8; --flag-eu:#285bb8;
+    --shadow:0 1px 0 rgba(0,0,0,.3),0 10px 30px -14px rgba(0,0,0,.7);
+  }
+}
+:root[data-theme="dark"]{
+  color-scheme:dark;
+  --paper:#10181d; --paper-2:#16222a; --card:#18252d; --ink:#e4ebe7; --ink-2:#b9c6c1; --muted:#8c9c98; --rule:#2a3a42; --rule-2:#3a4c55;
+  --hl:#6d6414; --hl-ink:#fff6b0;
+  --pl:#d95926; --de:#3987e5; --nl:#199e70; --fr:#c98500; --eu:#8c9a9f;
+  --good:#4fbf7f; --warn:#e0a53a; --bad:#ef7a6c;
+  --good-bg:#15301f; --warn-bg:#352a12; --bad-bg:#3a1c18;
+  --cube-base:#4f6169; --cube-grid:#23323a;
+  --navy:#176ca7; --navy-deep:#0b3857; --navy-soft:#17364a; --sky:#317aa7; --farm:#254332;
+  --animal-cow:#5ba8e5; --animal-pig:#f48eaa; --animal-chicken:#ffc34d; --animal-turkey:#bd7bd1;
+  --flag-ring:#60737d; --section-ink:#ffffff; --illustration-line:#b7ddf5;
+  --flag-white:#ffffff; --flag-black:#161616; --flag-red:#e3324c; --flag-gold:#ffd226; --flag-blue:#2c64b8; --flag-eu:#285bb8;
+  --shadow:0 1px 0 rgba(0,0,0,.3),0 10px 30px -14px rgba(0,0,0,.7);
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}*{animation:none!important;transition:none!important}}
+body{background:var(--paper);color:var(--ink);font-family:var(--f-body);font-size:18px;line-height:1.55;-webkit-font-smoothing:antialiased}
+a{color:inherit;text-decoration-color:var(--rule-2);text-underline-offset:3px}
+a:hover{text-decoration-color:var(--ink)}
+:focus-visible{outline:2px solid var(--de);outline-offset:3px;border-radius:2px}
+.wrap{max-width:1240px;margin:0 auto;padding-inline:20px;padding-block:0 80px}
+.mono{font-family:var(--f-mono)}
+.num{font-variant-numeric:tabular-nums}
+mark,.hl{background:linear-gradient(transparent 12%,var(--hl) 12%,var(--hl) 88%,transparent 88%);color:var(--hl-ink);padding:0 .15em;box-decoration-break:clone;-webkit-box-decoration-break:clone}
+
+/* top bar */
+.topbar{position:sticky;top:env(safe-area-inset-top,0px);z-index:30;background:color-mix(in srgb,var(--paper) 92%,transparent);backdrop-filter:blur(8px);border-bottom:1px solid var(--rule)}
+.topbar-in{max-width:1240px;margin:0 auto;padding:10px 20px;display:flex;gap:18px;align-items:center;justify-content:space-between}
+.brand{font-family:var(--f-disp);font-weight:800;font-size:22px;letter-spacing:.02em;text-transform:uppercase;white-space:nowrap}
+.brand small{font-family:var(--f-mono);font-weight:500;font-size:11px;letter-spacing:.08em;color:var(--muted);margin-left:8px}
+.chipnav{display:flex;gap:6px;overflow-x:auto;scrollbar-width:none}
+.chipnav::-webkit-scrollbar{display:none}
+.chipnav a{font-family:var(--f-mono);font-size:12px;letter-spacing:.04em;text-decoration:none;padding:5px 10px;border:1px solid var(--rule);border-radius:999px;white-space:nowrap;color:var(--ink-2)}
+.chipnav a:hover,.chipnav a.on{border-color:var(--ink);color:var(--ink)}
+.chipnav a.on{background:var(--ink);color:var(--paper)}
+
+/* hero */
+.hero{display:grid;grid-template-columns:minmax(0,1.05fr) minmax(0,1fr);gap:36px;align-items:center;padding-block:44px 20px}
+.evtag{font-family:var(--f-mono);font-size:12px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted);display:flex;gap:10px;flex-wrap:wrap;align-items:center}
+.evtag b{color:var(--ink);font-weight:600}
+.evtag .dot{width:6px;height:6px;border-radius:50%;background:var(--pl);display:inline-block}
+h1{font-family:var(--f-disp);font-weight:900;font-size:clamp(64px,9vw,128px);line-height:.86;letter-spacing:-.005em;text-transform:uppercase;margin:14px 0 18px;text-wrap:balance}
+h1 .t{color:var(--pl)}
+.lede{font-size:21px;line-height:1.5;max-width:34em;color:var(--ink-2);margin:0 0 18px}
+.lede strong{color:var(--ink);font-weight:600}
+.hero-facts{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:0;border-top:1px solid var(--ink);margin-top:22px;max-width:620px}
+.hero-facts div{padding:12px 14px 0 0}
+.hero-facts b{display:block;font-family:var(--f-disp);font-weight:800;font-size:40px;line-height:1}
+.hero-facts span{font-family:var(--f-mono);font-size:11.5px;color:var(--muted);letter-spacing:.02em;line-height:1.35;display:block;margin-top:6px}
+.stage{position:relative;background:var(--card);border:1px solid var(--rule);border-radius:6px;box-shadow:var(--shadow);overflow:hidden}
+.stage canvas{display:block;width:100%;height:420px;cursor:grab;touch-action:pan-y}
+.stage canvas:active{cursor:grabbing}
+.stage-head{display:flex;justify-content:space-between;gap:10px;align-items:flex-start;padding:12px 14px 0;font-family:var(--f-mono);font-size:11.5px;color:var(--muted);letter-spacing:.03em}
+.stage-foot{padding:10px 14px 14px;border-top:1px dashed var(--rule);display:flex;flex-direction:column;gap:10px}
+.seg{display:flex;flex-wrap:wrap;gap:6px}
+.seg button{font-family:var(--f-mono);font-size:12px;padding:6px 10px;border:1px solid var(--rule-2);background:transparent;color:var(--ink);border-radius:4px;cursor:pointer}
+.seg button[aria-pressed="true"]{background:var(--ink);color:var(--paper);border-color:var(--ink)}
+.seg button:hover{border-color:var(--ink)}
+.readout{font-family:var(--f-mono);font-size:13px;line-height:1.45}
+.readout b{font-weight:600}
+.legend{display:flex;flex-wrap:wrap;gap:12px;font-family:var(--f-mono);font-size:11.5px;color:var(--ink-2)}
+.legend i{display:inline-block;width:11px;height:11px;border-radius:2px;margin-right:6px;vertical-align:-1px}
+
+/* layout body */
+.body{display:grid;grid-template-columns:200px minmax(0,1fr);gap:40px;margin-top:30px}
+.index{position:sticky;top:calc(env(safe-area-inset-top,0px) + 64px);align-self:start;font-family:var(--f-mono);font-size:12px}
+.index p{margin:0 0 8px;color:var(--muted);letter-spacing:.1em;text-transform:uppercase;font-size:11px}
+.index ol{list-style:none;margin:0;padding:0;border-left:1px solid var(--rule)}
+.index li a{display:block;padding:6px 0 6px 14px;text-decoration:none;color:var(--ink-2);border-left:2px solid transparent;margin-left:-1px;line-height:1.3}
+.index li a:hover{color:var(--ink)}
+.index li a.on{border-left-color:var(--pl);color:var(--ink);font-weight:600}
+.index li a em{font-style:normal;color:var(--muted);display:block;font-size:10.5px;letter-spacing:.06em}
+
+section.ch{padding-block:34px 18px;border-top:1px solid var(--rule)}
+section.ch:first-child{border-top:0;padding-top:0}
+.ch-head{display:grid;grid-template-columns:minmax(0,1fr);gap:8px;margin-bottom:20px}
+.kicker{font-family:var(--f-mono);font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:var(--muted)}
+.kicker b{color:var(--pl);font-weight:600}
+h2{font-family:var(--f-disp);font-weight:800;font-size:clamp(38px,5vw,60px);line-height:.95;text-transform:uppercase;margin:0;text-wrap:balance;letter-spacing:.005em}
+h3{font-family:var(--f-disp);font-weight:800;font-size:26px;line-height:1.05;text-transform:uppercase;margin:0 0 8px;letter-spacing:.01em;text-wrap:balance}
+h4{font-family:var(--f-mono);font-size:12px;letter-spacing:.1em;text-transform:uppercase;margin:0 0 8px;color:var(--ink-2);font-weight:600}
+.prose{max-width:40em}
+.prose p{margin:0 0 14px}
+.prose p:last-child{margin-bottom:0}
+.small{font-size:15px;line-height:1.5;color:var(--ink-2)}
+.note{font-family:var(--f-mono);font-size:12px;color:var(--muted);line-height:1.5;margin-top:10px}
+
+.grid2{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:22px}
+.grid3{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:18px}
+.grid4{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:14px}
+.panel{background:var(--card);border:1px solid var(--rule);border-radius:6px;padding:18px}
+.panel.flat{background:transparent;border-style:dashed}
+.evcard{position:relative;background:var(--card);border:1px solid var(--rule);border-radius:6px;padding:18px 18px 16px}
+.evcard .evn{font-family:var(--f-mono);font-size:11px;letter-spacing:.08em;color:var(--muted);text-transform:uppercase;display:flex;justify-content:space-between;gap:8px;margin-bottom:8px;border-bottom:1px dashed var(--rule);padding-bottom:8px}
+
+/* stamps */
+.stamp{display:inline-flex;align-items:center;gap:6px;font-family:var(--f-mono);font-size:10.5px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;padding:3px 7px;border:1.5px solid currentColor;border-radius:3px;white-space:nowrap;line-height:1.2}
+.stamp svg{width:11px;height:11px}
+.stamp.ok{color:var(--good);background:var(--good-bg)}
+.stamp.mid{color:var(--warn);background:var(--warn-bg)}
+.stamp.no{color:var(--bad);background:var(--bad-bg)}
+.stamp.tilt{transform:rotate(-3deg)}
+
+/* country chip */
+.cc{display:inline-flex;align-items:center;gap:6px;font-family:var(--f-mono);font-size:12px;font-weight:600;letter-spacing:.04em}
+.cc i{width:10px;height:10px;border-radius:2px;display:inline-block}
+
+/* charts */
+.chart{width:100%;overflow-x:auto}
+.chart svg{display:block;width:100%;height:auto;min-width:520px}
+.chart.nomin svg{min-width:0}
+.chart text{font-family:var(--f-mono);fill:var(--ink-2)}
+.chart .ax{stroke:var(--rule-2);stroke-width:1}
+.chart .gr{stroke:var(--rule);stroke-width:1;stroke-dasharray:2 3}
+.tip{position:fixed;z-index:60;pointer-events:none;background:var(--ink);color:var(--paper);font-family:var(--f-mono);font-size:12px;line-height:1.4;padding:8px 10px;border-radius:4px;max-width:280px;box-shadow:var(--shadow);opacity:0;transform:translateY(4px);transition:opacity .12s,transform .12s}
+.tip.on{opacity:1;transform:none}
+.tip b{font-weight:600}
+
+/* tables */
+.tbl{width:100%;border-collapse:collapse;font-size:15px}
+.tbl th,.tbl td{padding:8px 10px;text-align:left;border-bottom:1px solid var(--rule);vertical-align:top}
+.tbl th{font-family:var(--f-mono);font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);font-weight:500}
+.tbl td.r,.tbl th.r{text-align:right}
+.tbl td.num{font-family:var(--f-mono);font-size:14px}
+.tblwrap{overflow-x:auto}
+.tbl tr.me td{background:color-mix(in srgb,var(--pl) 10%,transparent)}
+
+/* pipeline */
+.pipe{display:grid;grid-template-columns:repeat(6,minmax(0,1fr));gap:0;position:relative;margin-top:12px}
+.st{position:relative;padding:14px 12px 12px;border:1px solid var(--rule-2);background:var(--card);min-height:132px}
+.st+.st{border-left:0}
+.st .ic{font-family:var(--f-mono);font-size:11px;color:var(--muted);letter-spacing:.08em}
+.st b{display:block;font-family:var(--f-disp);font-size:21px;font-weight:800;text-transform:uppercase;line-height:1;margin:6px 0}
+.st p{margin:0;font-size:13.5px;line-height:1.35;color:var(--ink-2)}
+.st.m-sale{box-shadow:inset 0 -5px 0 var(--de)}
+.st.m-use{box-shadow:inset 0 -5px 0 var(--nl)}
+.st.m-prop{box-shadow:inset 0 -5px 0 var(--fr)}
+.leak{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;margin-top:14px}
+.leak div{border-left:3px solid var(--bad);padding:4px 0 4px 12px;font-size:15px}
+.leak b{display:block;font-family:var(--f-mono);font-size:11.5px;letter-spacing:.06em;text-transform:uppercase;color:var(--bad)}
+
+/* coverage matrix */
+.mx{display:grid;grid-template-columns:130px repeat(4,minmax(0,1fr));gap:4px;font-family:var(--f-mono);font-size:12px}
+.mx .h{padding:6px 4px;color:var(--muted);letter-spacing:.06em;text-transform:uppercase;font-size:11px;align-self:end}
+.mx .rl{display:flex;align-items:center;gap:8px;font-weight:600;padding:6px 4px}
+.mx .c{border-radius:4px;padding:10px 8px;min-height:62px;display:flex;flex-direction:column;justify-content:space-between;gap:4px;border:1px solid var(--rule)}
+.mx .c b{font-size:15px}
+.mx .c span{font-size:10.5px;color:var(--ink-2);line-height:1.25}
+.mx .c.full{background:color-mix(in srgb,var(--good) 18%,var(--card))}
+.mx .c.part{background:color-mix(in srgb,var(--warn) 16%,var(--card))}
+.mx .c.low{background:color-mix(in srgb,var(--bad) 13%,var(--card))}
+.mx .c.none{background:repeating-linear-gradient(135deg,color-mix(in srgb,var(--bad) 16%,var(--card)) 0 6px,var(--card) 6px 12px)}
+
+/* tabs */
+.tabs{display:flex;gap:0;border-bottom:1px solid var(--ink);flex-wrap:wrap}
+.tabs button{font-family:var(--f-disp);font-weight:800;font-size:20px;text-transform:uppercase;letter-spacing:.02em;padding:10px 16px 8px;border:1px solid transparent;border-bottom:0;background:none;color:var(--muted);cursor:pointer;border-radius:5px 5px 0 0;margin-bottom:-1px}
+.tabs button[aria-selected="true"]{color:var(--ink);border-color:var(--ink);background:var(--card)}
+.tabpanel{border:1px solid var(--ink);border-top:0;background:var(--card);padding:18px;border-radius:0 0 6px 6px}
+.sp-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px}
+.sp-card{border:1px solid var(--rule);border-radius:5px;padding:12px;display:flex;flex-direction:column;gap:8px;background:var(--paper)}
+.sp-card .big{font-family:var(--f-disp);font-weight:800;font-size:34px;line-height:1}
+.sp-card .unit{font-family:var(--f-mono);font-size:11px;color:var(--muted)}
+.sp-card p{margin:0;font-size:14px;line-height:1.4;color:var(--ink-2)}
+.sp-card .top{display:flex;justify-content:space-between;align-items:center;gap:6px}
+
+/* slider */
+.ctl{display:grid;gap:6px;margin:10px 0}
+.ctl label{font-family:var(--f-mono);font-size:12px;color:var(--ink-2);display:flex;justify-content:space-between;gap:10px}
+.ctl input[type=range]{width:100%;accent-color:var(--pl)}
+.check{display:flex;gap:8px;align-items:center;font-family:var(--f-mono);font-size:12px;color:var(--ink-2)}
+.check input{accent-color:var(--pl)}
+
+.hyp{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px;margin-top:18px}
+.hyp .evcard h3{font-size:22px}
+.meter{height:12px;border-radius:3px;background:var(--paper-2);overflow:hidden;display:flex;gap:2px;margin:8px 0}
+.meter i{display:block;height:100%}
+
+/* timeline */
+.tl{position:relative;display:grid;gap:0;margin-top:10px}
+.tl-row{display:grid;grid-template-columns:92px 22px minmax(0,1fr);gap:10px;align-items:start}
+.tl-y{font-family:var(--f-disp);font-weight:800;font-size:24px;text-align:right;line-height:1.1;padding-top:2px}
+.tl-dot{position:relative;height:100%}
+.tl-dot::before{content:"";position:absolute;left:10px;top:0;bottom:0;width:1px;background:var(--rule-2)}
+.tl-dot::after{content:"";position:absolute;left:5px;top:9px;width:11px;height:11px;border-radius:50%;background:var(--card);border:2px solid var(--ink)}
+.tl-row.eu .tl-dot::after{border-color:var(--de)}
+.tl-row.pl .tl-dot::after{border-color:var(--pl);background:var(--pl)}
+.tl-row.nl .tl-dot::after{border-color:var(--nl)}
+.tl-row.de .tl-dot::after{border-color:var(--de);background:var(--de)}
+.tl-body{padding-bottom:16px;font-size:16px;line-height:1.45}
+.tl-body b{font-weight:600}
+.tl-body .who{font-family:var(--f-mono);font-size:11px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);display:block}
+
+/* ledger */
+.ledger{display:grid;gap:10px}
+.lrow{display:grid;grid-template-columns:150px minmax(0,1fr) minmax(0,1.1fr);gap:16px;padding:14px 0;border-bottom:1px solid var(--rule);align-items:start}
+.lrow .src{font-family:var(--f-mono);font-size:11.5px;color:var(--muted);line-height:1.4}
+.lrow .claim{font-size:16px;line-height:1.4}
+.lrow .verdict{font-size:15px;line-height:1.45;color:var(--ink-2)}
+.lrow .verdict .stamp{margin-bottom:6px}
+.filters{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:8px}
+
+.inv{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}
+.inv div{border-top:2px solid var(--ink);padding-top:8px;font-size:15px;line-height:1.4}
+.inv b{font-family:var(--f-mono);font-size:12px;letter-spacing:.06em;text-transform:uppercase;display:block;margin-bottom:4px}
+.inv .ct{font-family:var(--f-disp);font-weight:800;font-size:30px;display:block;line-height:1}
+
+.kpis{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:0;border-top:1px solid var(--ink);border-bottom:1px solid var(--rule)}
+.kpis div{padding:12px 14px 12px 0}
+.kpis b{font-family:var(--f-disp);font-weight:800;font-size:40px;line-height:1;display:block}
+.kpis span{font-family:var(--f-mono);font-size:11.5px;color:var(--muted);display:block;margin-top:4px;line-height:1.35}
+
+.quote{border-left:3px solid var(--ink);padding:4px 0 4px 16px;font-style:italic;color:var(--ink-2);font-size:17px;margin:14px 0}
+.quote cite{display:block;font-style:normal;font-family:var(--f-mono);font-size:11.5px;color:var(--muted);margin-top:6px}
+
+.sources ol{padding-left:20px;margin:0;font-size:14.5px;line-height:1.5;columns:2;column-gap:32px}
+.sources li{margin-bottom:6px;break-inside:avoid}
+footer{margin-top:40px;padding-top:18px;border-top:1px solid var(--ink);font-family:var(--f-mono);font-size:12px;color:var(--muted);display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap}
+
+@media (max-width:1060px){
+  .body{grid-template-columns:minmax(0,1fr)}
+  .index{display:none}
+  .sp-grid{grid-template-columns:repeat(2,minmax(0,1fr))}
+}
+@media (max-width:900px){
+  .hero{grid-template-columns:minmax(0,1fr);gap:22px;padding-top:28px}
+  .grid2,.grid3,.hyp{grid-template-columns:minmax(0,1fr)}
+  .grid4,.kpis{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .pipe{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .st+.st{border-left:1px solid var(--rule-2)}
+  .leak,.inv{grid-template-columns:minmax(0,1fr)}
+  .lrow{grid-template-columns:minmax(0,1fr);gap:6px}
+  .sources ol{columns:1}
+  .topbar .chipnav{display:none}
+}
+@media (max-width:560px){
+  body{font-size:19px}
+  .wrap{padding-inline:16px}
+  .hero-facts{grid-template-columns:minmax(0,1fr)}
+  .stage canvas{height:340px}
+  .sp-grid{grid-template-columns:minmax(0,1fr)}
+  .mx{grid-template-columns:86px repeat(4,minmax(0,1fr));font-size:11px}
+  .mx .c{padding:7px 5px;min-height:56px}
+  .mx .c span{display:none}
+  .tl-row{grid-template-columns:62px 22px minmax(0,1fr)}
+  .tl-y{font-size:20px}
+  .tabs button{font-size:17px;padding:8px 10px 6px}
+}
+
+/* ===== WERSJA GRAFICZNA 2026: infografika przyjazna i dostępna ===== */
+body{margin:0;background:
+  radial-gradient(circle at 12% 8%,color-mix(in srgb,var(--sky) 18%,transparent),transparent 28rem),
+  var(--paper)}
+.topbar{box-shadow:0 7px 24px -22px var(--navy-deep)}
+.topbar-in{min-height:64px}
+.top-tools{display:flex;align-items:center;gap:8px;margin-left:auto}
+.top-tools button{min-width:48px;min-height:48px;padding:8px 11px;border:1px solid var(--rule-2);border-radius:999px;background:var(--card);color:var(--ink);font:700 18px/1 var(--f-mono);cursor:pointer;box-shadow:0 3px 12px -9px var(--navy-deep)}
+.top-tools button[aria-pressed="true"]{background:var(--navy);color:#fff;border-color:var(--navy)}
+.top-tools .theme-toggle{font-size:21px}
+:root[data-font-size="1"]{--reader-size:20px}:root[data-font-size="2"]{--reader-size:22px}
+.anchor-alias{display:block;position:relative;top:-84px;visibility:hidden}
+.chipnav a,.seg button,.tabs button,.filters button{min-height:48px;display:inline-flex;align-items:center;justify-content:center}
+body{font-size:var(--reader-size)}
+
+.hero{position:relative;isolation:isolate;border-radius:24px;margin-top:24px;padding:36px;background:linear-gradient(135deg,color-mix(in srgb,var(--navy-soft) 74%,var(--card)),var(--card) 56%);border:1px solid color-mix(in srgb,var(--navy) 24%,var(--rule));overflow:hidden;box-shadow:0 18px 44px -35px var(--navy-deep)}
+.hero>div:first-of-type{position:relative;z-index:2;background:color-mix(in srgb,var(--card) 91%,transparent);padding:24px;border-radius:18px;border:1px solid color-mix(in srgb,var(--navy) 16%,var(--rule))}
+.hero-scene{position:absolute;inset:0;z-index:-1;opacity:.34;pointer-events:none}
+.hero-scene svg{width:100%;height:100%;display:block}
+.stage{border-radius:18px;border-color:color-mix(in srgb,var(--navy) 24%,var(--rule));box-shadow:0 18px 38px -28px var(--navy-deep)}
+.stage::after{content:"";position:absolute;left:12%;right:12%;top:45%;height:22%;border-radius:50%;background:radial-gradient(ellipse,color-mix(in srgb,var(--navy-deep) 18%,transparent),transparent 67%);filter:blur(12px);pointer-events:none;z-index:0}
+.stage canvas,.stage-head,.stage-foot{position:relative;z-index:1}
+
+.body{grid-template-columns:230px minmax(0,1fr)}
+.index{background:var(--card);border:1px solid var(--rule);border-radius:18px;padding:12px;box-shadow:var(--shadow)}
+.index ol{border:0;display:grid;gap:7px}
+.index li a{min-height:58px;border:1px solid transparent;border-radius:12px;padding:8px 10px;display:grid;grid-template-columns:38px 1fr;align-items:center;column-gap:8px;margin:0}
+.index li a:hover,.index li a.on{background:var(--navy-soft);border-color:color-mix(in srgb,var(--navy) 35%,var(--rule))}
+.toc-ic{width:36px;height:36px;border-radius:10px;background:color-mix(in srgb,var(--navy) 12%,var(--card));display:grid;place-items:center;grid-row:1 / span 2}
+.toc-ic svg{width:30px;height:30px}
+.index li a em{grid-column:2}
+
+section.ch{border-top:0;padding-top:42px;scroll-margin-top:74px}
+.ch-head{grid-template-columns:minmax(0,1fr) 160px;align-items:center;gap:20px;background:linear-gradient(125deg,var(--navy-deep),var(--navy));color:var(--section-ink);padding:20px 22px;border-radius:18px;box-shadow:0 15px 32px -26px var(--navy-deep);overflow:hidden;position:relative}
+.ch-head::before{content:"";position:absolute;inset:0;background:linear-gradient(90deg,transparent 45%,rgba(255,255,255,.08));pointer-events:none}
+.ch-head .kicker{color:rgba(255,255,255,.82);display:flex;align-items:center;gap:8px}
+.ch-head .kicker b{width:50px;height:50px;border-radius:50%;display:inline-grid;place-items:center;background:#fff;color:var(--navy-deep);font-size:0;box-shadow:0 0 0 5px rgba(255,255,255,.13)}
+.ch-head .kicker b::after{content:attr(data-ch);font-size:21px;font-family:var(--f-disp);font-weight:900}
+.ch-head h2{grid-row:2;position:relative;z-index:1}
+.chapter-art{grid-column:2;grid-row:1 / span 2;justify-self:end;width:150px;height:94px;opacity:.96}
+.chapter-art svg{width:100%;height:100%;display:block}
+
+.animal-icon{display:inline-block;width:42px;height:42px;vertical-align:middle;flex:0 0 auto}
+.animal-icon.sm{width:30px;height:30px}.animal-icon.lg{width:58px;height:58px}
+.flag-svg{width:30px;height:30px;flex:0 0 auto;filter:drop-shadow(0 1px 1px rgba(0,0,0,.18))}
+.cc{gap:8px}.cc .flag-svg+i{margin-left:1px}
+.tabs button{gap:8px}.tabs button .animal-icon{width:36px;height:36px}
+.mx .h{display:flex;align-items:center;justify-content:center;gap:5px;flex-wrap:wrap;text-align:center}
+.mx .rl{min-width:0}.mx .rl .cc{min-width:0;flex-wrap:wrap}
+.sp-card{border-radius:15px;padding:15px;box-shadow:0 10px 24px -22px var(--navy-deep)}
+.panel,.evcard{border-radius:15px}.stamp{border-radius:999px;padding:7px 10px;min-height:32px;background-image:radial-gradient(circle at 22% 25%,rgba(255,255,255,.32),transparent 38%)}
+
+.truck-chart{display:grid;grid-template-columns:repeat(15,minmax(0,1fr));gap:5px;margin-top:10px}
+.truck-unit{aspect-ratio:1.45;min-width:0;filter:drop-shadow(0 2px 1px rgba(0,0,0,.12));transform-origin:50% 100%;animation:truckIn .38s both}
+.truck-unit svg{width:100%;height:100%;display:block}.truck-unit.base{color:var(--cube-base)}.truck-unit.export{color:var(--fr)}.truck-unit.rest{color:var(--pl)}
+.truck-labels{display:flex;flex-wrap:wrap;gap:10px;margin-top:12px;font:600 14px/1.4 var(--f-mono)}
+.truck-labels span{display:inline-flex;align-items:center;gap:6px}.truck-labels i{width:14px;height:14px;border-radius:4px}
+@keyframes truckIn{from{opacity:0;transform:translateY(8px) scale(.9)}to{opacity:1;transform:none}}
+
+.chart svg rect{filter:drop-shadow(0 3px 2px color-mix(in srgb,var(--navy-deep) 16%,transparent));transform-box:fill-box;transform-origin:center bottom}
+.chart.is-entering svg rect{animation:barRise .55s cubic-bezier(.2,.8,.2,1) both}
+@keyframes barRise{from{transform:scaleY(.08);opacity:.35}to{transform:scaleY(1);opacity:1}}
+.small,.note,.st p,.leak div,.sp-card p,.tl-body,.lrow .claim,.lrow .verdict,.inv div,.quote,.sources ol,
+.brand small,.chipnav a,.evtag,.stage-head,.seg button,.index,.index p,.index li a em,.kicker,h4,.evcard .evn,.stamp,.cc,.legend,.readout,.tbl th,.st .ic,.leak b,.mx,.mx .h,.mx .c span,.sp-card .unit,.ctl label,.check,.tl-body .who,.lrow .src,.inv b,.kpis span,.quote cite,footer{font-size:var(--reader-size)}
+.tbl{font-size:var(--reader-size)}.tbl td.num{font-size:var(--reader-size)}
+
+@media (max-width:1060px){.body{grid-template-columns:1fr}.index{position:static}.index ol{grid-template-columns:repeat(4,minmax(0,1fr))}.index li a{height:100%}}
+@media (max-width:760px){
+  .topbar-in{flex-wrap:wrap}.brand{flex:1}.top-tools{margin-left:0}.chipnav{order:3;width:100%}
+  .hero{grid-template-columns:1fr;padding:16px;border-radius:18px}.hero>div:first-of-type{padding:16px}.hero-scene{opacity:.24}
+  .index ol{grid-template-columns:repeat(2,minmax(0,1fr))}
+  .ch-head{grid-template-columns:minmax(0,1fr) 92px;padding:16px}.chapter-art{width:90px;height:76px}.ch-head .kicker b{width:44px;height:44px}
+  .truck-chart{grid-template-columns:repeat(10,minmax(0,1fr))}
+}
+@media (max-width:560px){
+  :root{--reader-size:19px}:root[data-font-size="1"]{--reader-size:21px}:root[data-font-size="2"]{--reader-size:23px}
+  .wrap{padding-inline:12px}.brand small{display:none}.top-tools{width:100%;justify-content:space-between}.top-tools button{flex:1}
+  h1{font-size:clamp(58px,21vw,88px)}.hero{margin-top:12px}.hero-facts b{font-size:36px}
+  .index ol{grid-template-columns:1fr}.index li a{min-height:64px}
+  .ch-head{grid-template-columns:1fr}.chapter-art{display:none}.ch-head h2{font-size:38px;line-height:1.02}
+  .mx{grid-template-columns:88px repeat(4,minmax(80px,1fr));overflow-x:auto;padding-bottom:8px}.mx .h{font-size:13px}.mx .h .animal-icon{width:27px;height:27px}.mx .c span{display:block}
+  .tabs{display:grid;grid-template-columns:1fr 1fr}.tabs button{font-size:19px;padding:8px}.truck-chart{grid-template-columns:repeat(8,minmax(0,1fr))}
+  .small,.note,.st p,.leak div,.sp-card p,.tl-body,.lrow .claim,.lrow .verdict,.inv div,.quote,.sources ol,
+  .brand small,.chipnav a,.evtag,.stage-head,.seg button,.index,.index p,.index li a em,.kicker,h4,.evcard .evn,.stamp,.cc,.legend,.readout,.tbl th,.st .ic,.leak b,.mx,.mx .h,.mx .c span,.sp-card .unit,.ctl label,.check,.tl-body .who,.lrow .src,.inv b,.kpis span,.quote cite,footer{font-size:var(--reader-size)}
+  .tblwrap{overflow:visible}.tbl,.tbl tbody,.tbl tr,.tbl td{display:block;width:100%}.tbl thead{position:absolute!important;width:1px!important;height:1px!important;overflow:hidden!important;clip:rect(0 0 0 0)!important;white-space:nowrap!important}.tbl tr{background:var(--card);border:1px solid var(--rule);border-radius:14px;padding:10px;margin-bottom:12px}.tbl td,.tbl td.r,.tbl td.num{text-align:left;font-size:var(--reader-size);border-bottom:1px dashed var(--rule);padding:9px 8px}.tbl td:last-child{border-bottom:0}.tbl td::before{content:attr(data-label);display:block;font:700 var(--reader-size)/1.25 var(--f-mono);color:var(--muted);text-transform:uppercase;margin-bottom:4px}.tbl tr.me td{background:transparent}
+}
+</style>
+
+<div class="topbar">
+  <div class="topbar-in">
+    <div class="brand">Tony bez adresu<small>AKTA · PENDRIVE</small></div>
+    <nav class="chipnav" aria-label="Rozdziały">
+      <a href="#metoda">Metoda</a><a href="#sprzedaz">Sprzedaż</a><a href="#trend">Trend</a><a href="#gatunki">Gatunki</a><a href="#luka">Luka</a><a href="#teren">Teren</a><a href="#system">Systemy</a><a href="#akta">Akta</a>
+    </nav>
+    <div class="top-tools" aria-label="Ustawienia czytania">
+      <button type="button" data-size="0" aria-pressed="true" aria-label="Standardowa wielkość tekstu">A</button>
+      <button type="button" data-size="1" aria-pressed="false" aria-label="Większy tekst">A+</button>
+      <button type="button" data-size="2" aria-pressed="false" aria-label="Największy tekst">A++</button>
+      <button type="button" class="theme-toggle" id="themeToggle" aria-pressed="false" aria-label="Przełącz motyw jasny i ciemny">◐</button>
+    </div>
+  </div>
+</div>
+
+<div class="wrap">
+
+<header class="hero" id="top">
+  <div>
+    <div class="evtag"><span class="dot"></span><b>Sprawa: antybiotyki u zwierząt gospodarskich</b><span>PL · DE · NL · FR</span><span>stan na IX 2026</span></div>
+    <h1>Tony<br>bez <span class="t">adresu</span></h1>
+    <p class="lede">W 2024 r. polskie hurtownie i podmioty odpowiedzialne sprzedały <strong class="num">732,1 t</strong> substancji czynnych antybiotyków dla zwierząt gospodarskich. To <mark>1,7 raza więcej na kilogram zwierząt niż średnio w UE</mark>. Ile z tego trafiło do indyków, brojlerów, świń i bydła? Tego nie wie nikt: Europejska Agencja Leków oznaczyła polskie dane o zużyciu jako niepełne dla wszystkich czterech gatunków.</p>
+    <p class="small prose">Ta strona porządkuje zawartość pendrive'a: raporty, infografiki, artykuły z „Życia Weterynaryjnego”, pisma z terenu i bazę danych gabinetu weterynaryjnego. Każdą liczbę sprawdziliśmy z raportami EMA i krajowymi źródłami. Pieczątki pokazują, co się potwierdziło.</p>
+    <div class="hero-facts">
+      <div><b class="num">76,9</b><span>mg/kg biomasy · sprzedaż PL 2024<br>UE: 46,1 · DE 39,8 · NL 24,5 · FR 16,3</span></div>
+      <div><b class="num">≈294 t</b><span>nadwyżka ponad poziom, jaki Polska miałaby przy średniej UE</span></div>
+      <div><b class="num">0 z 4</b><span>gatunków z polskimi danymi o zużyciu uznanymi przez EMA za kompletne</span></div>
+    </div>
+  </div>
+  <figure class="stage" style="margin:0">
+    <div class="stage-head"><span>MODEL 3D · 1 kostka = 1 tona substancji czynnej</span><span>przeciągnij, aby obrócić</span></div>
+    <canvas id="cubes" aria-label="Model trójwymiarowy: 732 kostki, każda to tona antybiotyku sprzedana w Polsce w 2024 roku; zaznaczona część to nadwyżka względem wybranego kraju"></canvas>
+    <div class="stage-foot">
+      <div class="seg" id="cmpSeg" role="group" aria-label="Porównaj z intensywnością">
+        <button type="button" data-k="EU" aria-pressed="true">gdyby jak średnia UE</button>
+        <button type="button" data-k="DE" aria-pressed="false">jak Niemcy</button>
+        <button type="button" data-k="NL" aria-pressed="false">jak Holandia</button>
+        <button type="button" data-k="FR" aria-pressed="false">jak Francja</button>
+      </div>
+      <div class="readout" id="cubeRead" aria-live="polite"></div>
+      <div class="legend"><span><i style="background:var(--cube-base)"></i>tony „wytłumaczalne” przy intensywności wybranego kraju</span><span><i style="background:var(--pl)"></i>nadwyżka Polski</span></div>
+    </div>
+  </figure>
+</header>
+
+<div class="body">
+  <aside class="index" id="spis" aria-label="Spis dowodów">
+    <p>Spis akt</p>
+    <ol id="idx">
+      <li><a href="#metoda"><em>Rozdz. A</em>Sprzedaż a zużycie</a></li>
+      <li><a href="#sprzedaz"><em>Rozdz. B</em>Europa 2024</a></li>
+      <li><a href="#trend"><em>Rozdz. C</em>Trajektorie 2011–2024</a></li>
+      <li><a href="#gatunki"><em>Rozdz. D</em>Indyki, brojlery, trzoda, bydło</a></li>
+      <li><a href="#luka"><em>Rozdz. E</em>Luka: trzy hipotezy</a></li>
+      <li><a href="#teren"><em>Rozdz. F</em>Teren i gabinet</a></li>
+      <li><a href="#system"><em>Rozdz. G</em>Jak liczą inni</a></li>
+      <li><a href="#akta"><em>Rozdz. H</em>Weryfikacja akt</a></li>
+    </ol>
+  </aside>
+
+  <main>
+
+  <!-- A -->
+  <section class="ch" id="metoda">
+    <span class="anchor-alias" id="r1"></span><span class="anchor-alias" id="slowniczek"></span>
+    <div class="ch-head">
+      <div class="kicker"><b>Rozdz. A</b> · słownik sprawy</div>
+      <h2>Sprzedaż to nie zużycie</h2>
+    </div>
+    <div class="prose">
+      <p>Całe nieporozumienie wokół „polskiego rekordu” zaczyna się od jednego słowa. Przez dekadę projekt ESVAC mierzył <b>sprzedaż</b>: ile miligramów substancji czynnej wyjechało z hurtowni, w przeliczeniu na kilogram zwierząt w kraju (mg/PCU). Nie wiedział, do którego gatunku lek trafił, kiedy go podano i czy w ogóle go podano.</p>
+      <p>Od rozporządzenia (UE) 2019/6 każdy kraj musi raportować także <b>zużycie</b>: ile podano bydłu, świniom, kurczętom i indykom. Pierwszy raport ESUAvet (za 2023 r.) ukazał się w kwietniu 2025, drugi (za 2024 r.) w 2026. Sprzedaż jest dziś mierzona w nowej jednostce, mg/kg biomasy, dlatego polskie 196 mg/PCU z 2022 r. i 76,9 mg/kg z 2024 r. <mark>to nie jest spadek o 60%, tylko zmiana linijki</mark>.</p>
+    </div>
+
+    <div class="pipe" role="list" aria-label="Droga antybiotyku i punkty pomiaru">
+      <div class="st m-sale" role="listitem"><span class="ic">01 · PODMIOT ODP.</span><b>Producent</b><p>Wprowadza lek do obrotu; raportuje sprzedaż.</p></div>
+      <div class="st m-sale" role="listitem"><span class="ic">02 · HURTOWNIA</span><b>Hurtownia</b><p>Tu liczono „zużycie” do 2022 r. Źródło wskaźnika 76,9.</p></div>
+      <div class="st m-use" role="listitem"><span class="ic">03 · ZAKŁAD LECZNICZY</span><b>Lekarz wet.</b><p>Bada, stawia diagnozę, wystawia receptę (ważna 5 dni) i dokument wydania.</p></div>
+      <div class="st m-use" role="listitem"><span class="ic">04 · FERMA</span><b>Hodowca</b><p>Ewidencja leczenia (art. 108 rozp. 2019/6). Tu powinno powstawać zużycie.</p></div>
+      <div class="st" role="listitem"><span class="ic">05 · STADO</span><b>Zwierzę</b><p>Woda pitna, pasza lecznicza, iniekcja. Dawka i okres karencji.</p></div>
+      <div class="st m-prop" role="listitem"><span class="ic">06 · UBOJNIA</span><b>Ubojnia</b><p>Informacja o łańcuchu żywnościowym. Propozycja z akt: liczyć mg/kg żywca tutaj.</p></div>
+    </div>
+    <div class="legend" style="margin-top:10px"><span><i style="background:var(--de)"></i>pomiar sprzedaży (ESVAC 2010–2022, ESUAvet sales)</span><span><i style="background:var(--nl)"></i>pomiar zużycia (ESUAvet use, od danych za 2023)</span><span><i style="background:var(--fr)"></i>weryfikacja proponowana w pismach z pendrive'a</span></div>
+    <div class="leak" aria-label="Miejsca, gdzie sprzedaż i zużycie mogą się rozjechać">
+      <div><b>Przeciek 1 · granica</b>Lek kupiony w polskiej hurtowni, podany w Czechach lub na Słowacji. Argument izb rolniczych.</div>
+      <div><b>Przeciek 2 · dokumentacja</b>Lek wydany na fermę, ale bez wpisu w ewidencji leczenia albo z zaniżoną dawką. Argument lekarza z terenu.</div>
+      <div><b>Przeciek 3 · metoda</b>Zapasy przechodzące na kolejny rok, leki wielogatunkowe, różne mianowniki biomasy. Zastrzeżenia EMA.</div>
+    </div>
+  </section>
+
+  <!-- B -->
+  <section class="ch" id="sprzedaz">
+    <span class="anchor-alias" id="r2"></span>
+    <div class="ch-head">
+      <div class="kicker"><b>Rozdz. B</b> · dowód: ESUAvet 2024, tabela 2</div>
+      <h2>Europa w jednej skali</h2>
+    </div>
+    <div class="grid2" style="align-items:start">
+      <div class="prose">
+        <p>Wysokość słupa to miligramy substancji czynnej na kilogram biomasy zwierząt gospodarskich. Podstawa słupa rośnie z biomasą, więc widać od razu, kto jest duży, a kto intensywny. Hiszpania sprzedaje najwięcej ton (1 249,5), Cypr ma najwyższą intensywność (112,9), Polska jest czwarta pod względem intensywności i druga pod względem masy.</p>
+        <p>Przełącznik pokazuje ten sam kontynent w 2019 r. według starej metody (mg/PCU). Skala jest inna, ale kolejność prawie ta sama. Polska była wtedy czwarta, 2,2 raza powyżej średniej. Dziś jest 1,7 raza powyżej.</p>
+        <div class="seg" id="euSeg" role="group" aria-label="Rok i metoda" style="margin-top:6px">
+          <button type="button" data-k="2024" aria-pressed="true">2024 · ESUAvet · mg/kg</button>
+          <button type="button" data-k="2019" aria-pressed="false">2019 · ESVAC · mg/PCU</button>
+        </div>
+      </div>
+      <figure class="stage" style="margin:0">
+        <div class="stage-head"><span id="euHead">EUROPA 2024 · wysokość = mg/kg · podstawa = biomasa</span><span>najedź na słup</span></div>
+        <canvas id="europe" aria-label="Trójwymiarowa mapa słupkowa Europy z intensywnością sprzedaży antybiotyków w każdym kraju"></canvas>
+      </figure>
+    </div>
+
+    <div class="grid2" style="margin-top:22px;align-items:start">
+      <div>
+        <h4>Ranking intensywności · <span id="rankLbl">2024, mg/kg</span></h4>
+        <div class="chart nomin" id="rankChart"></div>
+      </div>
+      <div>
+        <h4>Cztery kraje sprawy · 2024</h4>
+        <div class="tblwrap"><table class="tbl" id="fourTbl">
+          <thead><tr><th>Kraj</th><th class="r">Sprzedaż, t</th><th class="r">Biomasa, mln t</th><th class="r">mg/kg</th><th class="r">× UE</th></tr></thead>
+          <tbody></tbody>
+        </table></div>
+        <p class="note">Źródło: EMA, ESUAvet Annual Surveillance Report 2024, tab. 2 (sprzedaż dla zwierząt produkujących żywność). Pięć krajów (ES, PL, DE, IT, FR) odpowiada za ok. 75% sprzedaży w UE.</p>
+        <div class="panel flat" style="margin-top:12px">
+          <h4>Pozostała sprzedaż w UE 2024</h4>
+          <p class="small" style="margin:0">4 338 t dla zwierząt gospodarskich (+5,1% r/r). Grupy leczone przez wodę i paszę to 86% masy: roztwory doustne 65,3%, premiksy 13,2%, proszki 7,4%, iniekcje 12,7%. Klasy: penicyliny 34,2%, tetracykliny 22,0%, makrolidy 9,2%. Kategoria B AMEG (fluorochinolony, polimyksyny, cefalosporyny III/IV gen.): 6,0% sprzedaży.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- C -->
+  <section class="ch" id="trend">
+    <span class="anchor-alias" id="r3"></span>
+    <div class="ch-head">
+      <div class="kicker"><b>Rozdz. C</b> · dowody: ESVAC 2011–2022, BVL, SDa, ANSES</div>
+      <h2>Trzy kraje zjechały w dół. Jeden pod górę.</h2>
+    </div>
+    <div class="grid2" style="align-items:start">
+      <div>
+        <h4>Zmiana sprzedaży 2011 → 2022 (ESVAC, mg/PCU)</h4>
+        <div class="chart nomin" id="chgChart"></div>
+        <p class="note">PL: 126,3 → 196,0 mg/PCU. NL: → 37,0. UE: −53% (EMA, 31 krajów). DE, FR, ES, CZ: zestawienie Lubelskiej Izby Rolniczej na podstawie raportu EMA (farmer.pl, 2024). Polska była w 2020 r. jednym z pięciu krajów (na 31), w których sprzedaż od 2011 r. wzrosła.</p>
+      </div>
+      <div class="grid2" style="gap:12px">
+        <div class="evcard"><div class="evn"><span class="cc"><i style="background:var(--de)"></i>Niemcy</span><span class="stamp ok">✓ BVL</span></div><b class="num" style="font-family:var(--f-disp);font-size:38px;line-height:1">1 706 → 562 t</b><p class="small" style="margin:6px 0 0">Antybiotyki wydane lekarzom weterynarii, 2011 → 2024 (−67%). W 2024 r. +6,4% r/r. Polimyksyny 31 t, najmniej od 2011.</p></div>
+        <div class="evcard"><div class="evn"><span class="cc"><i style="background:var(--nl)"></i>Holandia</span><span class="stamp ok">✓ SDa</span></div><b class="num" style="font-family:var(--f-disp);font-size:38px;line-height:1">−75,5%</b><p class="small" style="margin:6px 0 0">Sprzedaż 2024 vs 2009: 121 168 kg. Benchmarking każdej fermy i każdego lekarza (DDDA), progi akcji.</p></div>
+        <div class="evcard"><div class="evn"><span class="cc"><i style="background:var(--fr)"></i>Francja</span><span class="stamp ok">✓ ANSES</span></div><b class="num" style="font-family:var(--f-disp);font-size:38px;line-height:1">ALEA 0,307</b><p class="small" style="margin:6px 0 0">Ekspozycja zwierząt na antybiotyki zmniejszona o połowę od 2011. Drób −71%, świnie −65%. 272,6 t w 2024 r.</p></div>
+        <div class="evcard"><div class="evn"><span class="cc"><i style="background:var(--pl)"></i>Polska</span><span class="stamp mid">≈ ESVAC</span></div><b class="num" style="font-family:var(--f-disp);font-size:38px;line-height:1">+55%</b><p class="small" style="margin:6px 0 0">2011 → 2022. Polimyksyny +80% (2011–2020), cefalosporyny III/IV gen. 0,1 → 0,4 mg/PCU przy średniej UE 0,2.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- D -->
+  <section class="ch" id="gatunki">
+    <span class="anchor-alias" id="r4"></span>
+    <div class="ch-head">
+      <div class="kicker"><b>Rozdz. D</b> · indyki · brojlery · trzoda · bydło</div>
+      <h2>Kto widzi swoje stada</h2>
+    </div>
+    <div class="prose">
+      <p>To miał być najważniejszy rozdział: mg/kg dla każdego gatunku, cztery kraje obok siebie. Tej tabeli nie da się dziś uczciwie zbudować. EMA do analizy przyjmuje tylko dane o pokryciu co najmniej 90%. Z naszej czwórki spełnia to wyłącznie Holandia. Poniżej najpierw to, co widać, potem to, co każdy kraj mierzy po swojemu.</p>
+    </div>
+
+    <h4 style="margin-top:18px">Pokrycie danych o zużyciu w ESUAvet 2024</h4>
+    <div class="mx" id="covMx" role="table" aria-label="Pokrycie danych o zużyciu według kraju i gatunku"></div>
+    <div class="legend" style="margin-top:10px"><span><i style="background:color-mix(in srgb,var(--good) 45%,var(--card))"></i>≥90%, dane użyte przez EMA</span><span><i style="background:color-mix(in srgb,var(--warn) 45%,var(--card))"></i>70–89%, tylko śledzenie postępu</span><span><i style="background:color-mix(in srgb,var(--bad) 35%,var(--card))"></i>10–30%</span><span><i style="background:repeating-linear-gradient(135deg,color-mix(in srgb,var(--bad) 40%,var(--card)) 0 3px,var(--card) 3px 6px)"></i>„niepełne”, bez podanego odsetka</span></div>
+    <p class="note">DE: 87%* to pokrycie ogólne, nie wyliczone osobno dla gatunków. FR: ANSES podaje 10–30% dla bydła, świń, kurcząt i indyków (w 2023 r. zgłoszone zużycie to 17% sprzedaży). PL: status „incomplete” dla wszystkich gatunków.</p>
+
+    <div style="margin-top:24px">
+      <div class="tabs" role="tablist" aria-label="Gatunek" id="spTabs">
+        <button role="tab" id="tab-ind" aria-controls="sp-panel" aria-selected="true" data-k="ind">Indyki</button>
+        <button role="tab" id="tab-bro" aria-controls="sp-panel" aria-selected="false" data-k="bro">Brojlery</button>
+        <button role="tab" id="tab-swi" aria-controls="sp-panel" aria-selected="false" data-k="swi">Trzoda</button>
+        <button role="tab" id="tab-byd" aria-controls="sp-panel" aria-selected="false" data-k="byd">Bydło</button>
+      </div>
+      <div class="tabpanel" role="tabpanel" id="sp-panel" aria-labelledby="tab-ind">
+        <p class="small" id="spIntro" style="margin:0 0 12px"></p>
+        <div class="sp-grid" id="spGrid"></div>
+      </div>
+    </div>
+
+    <div class="evcard" style="margin-top:22px">
+      <div class="evn"><span>Weryfikacja · dwa dokumenty z tego samego pendrive'a</span><span class="stamp no tilt">✗ niespójne</span></div>
+      <h3>Świnie w Polsce: 1,90 czy 200 mg/kg?</h3>
+      <p class="small" style="margin:0 0 12px">Raport „Zużycie antybiotyków u zwierząt.docx” podaje przedziały dla gatunków, infografika ChatGPT podaje wartości przeliczone z ESUAvet. Dla tej samej kategorii różnią się nawet stukrotnie. Żadnej z tych liczb nie wolno cytować bez sprawdzenia.</p>
+      <div class="chart" id="clashChart"></div>
+      <p class="note">Raport .docx miesza mg/PCU i mg/kg i nie podaje źródła pierwotnego dla przedziałów (ślady „[cite: 7, 8]” wskazują na tekst generowany przez AI). Infografika dzieli zgłoszone tony przez biomasę gatunku, ale dla DE i NL suma biomas czterech gatunków (22,9 i 11,2 mln t) przekracza całkowitą biomasę w tabeli EMA (13,9 i 4,8 mln t), a polskie tony pochodzą z danych oznaczonych jako niepełne.</p>
+    </div>
+  </section>
+
+  <!-- E -->
+  <section class="ch" id="luka">
+    <span class="anchor-alias" id="r5"></span>
+    <div class="ch-head">
+      <div class="kicker"><b>Rozdz. E</b> · różnica między zakupem a zużyciem</div>
+      <h2>294 tony do wyjaśnienia</h2>
+    </div>
+    <div class="grid2" style="align-items:start">
+      <div class="prose">
+        <p>Przyjmijmy prosty punkt odniesienia. Gdyby polskie stada leczono z intensywnością średnią dla UE, hurtownie sprzedałyby ok. <b class="num">438 t</b>. Sprzedały <b class="num">732 t</b>. Różnica to <mark>ok. 294 t rocznie</mark>, więcej niż cała roczna sprzedaż Francji (256 t). Tu testujemy trzy wyjaśnienia, które pojawiają się w aktach.</p>
+      </div>
+      <div class="panel">
+        <h4>Rozkład 732 t sprzedaży · model</h4>
+        <div class="chart nomin" id="gapBar"></div>
+        <div class="legend" style="margin-top:8px"><span><i style="background:var(--cube-base)"></i>poziom średniej UE</span><span><i style="background:var(--fr)"></i>możliwy wywóz (H1)</span><span><i style="background:var(--pl)"></i>reszta nadwyżki</span></div>
+      </div>
+    </div>
+
+    <div class="hyp">
+      <div class="evcard">
+        <div class="evn"><span>H1 · wywóz za granicę</span><span class="stamp mid" id="h1stamp">wyjaśnia część</span></div>
+        <h3>Sprzedane tu, podane u sąsiada</h3>
+        <p class="small">Stanowisko Lubelskiej Izby Rolniczej i KRIR (2024, IV 2026): wskaźnik zawyżają leki z polskich hurtowni zużyte w Czechach czy na Słowacji. Da się to policzyć. Załóż, jak intensywnie naprawdę leczą sąsiedzi, a różnicę względem ich własnej sprzedaży przypisz Polsce.</p>
+        <div class="ctl"><label for="nbInt"><span>zakładana intensywność u sąsiadów</span><b class="num" id="nbIntV"></b></label><input type="range" id="nbInt" min="0" max="100" step="1" value="46"></div>
+        <label class="check"><input type="checkbox" id="nbCZ" checked> Czechy</label>
+        <label class="check"><input type="checkbox" id="nbSK" checked> Słowacja</label>
+        <label class="check"><input type="checkbox" id="nbLT" checked> Litwa</label>
+        <label class="check"><input type="checkbox" id="nbDE"> Niemcy (monitoring HIT, mało prawdopodobne)</label>
+        <div class="readout" id="h1read" style="margin-top:10px" aria-live="polite"></div>
+      </div>
+      <div class="evcard">
+        <div class="evn"><span>H2 · zużycie bez dokumentów</span><span class="stamp mid">poszlaki z terenu</span></div>
+        <h3>Na fermie „prawie zero”</h3>
+        <p class="small">Lekarz weterynarii ze specjalizacją z chorób drobiu, wyznaczony do wystawiania świadectw zdrowia w gminie powiatu kaliskiego, liczył co miesiąc mg substancji czynnej na kg drobiu kierowanego do uboju. Wyszło kilka mg/kg. Średnia krajowa ze sprzedaży: ok. 165–190.</p>
+        <div class="chart nomin" id="fieldChart"></div>
+        <p class="note">Wnioski autora pism: dokumentacja fermowa jest niewiarygodna, a właściwym miejscem weryfikacji jest ubojnia (łańcuch żywnościowy × zakupy leków). Uwaga: mg/kg żywca i mg/PCU to różne mianowniki. Różnica rzędu wielkości zostaje.</p>
+      </div>
+      <div class="evcard">
+        <div class="evn"><span>H3 · artefakty metody</span><span class="stamp ok">potwierdzone przez EMA</span></div>
+        <h3>Liczby z różnych linijek</h3>
+        <p class="small">EMA zastrzega, że sprzedaż i zużycie to źródła komplementarne, ale odrębne. Lek sprzedany w grudniu może być podany w styczniu. Produkty wielogatunkowe nie przypisują się same do gatunku. Wreszcie Francja, z niską sprzedażą, też ma lukę: zgłosiła jako zużycie tylko 17% sprzedaży z 2023 r. (48,7 t) i 65,9 t za 2024.</p>
+        <div class="meter" aria-label="Francja 2024: zgłoszone zużycie na tle sprzedaży"><i style="width:24%;background:var(--fr)"></i><i style="flex:1;background:var(--rule-2)"></i></div>
+        <p class="note">FR 2024: 65,9 t zgłoszone w CalypsoVet vs 272,6 t sprzedaży (ok. 24%). NL: pełne pokrycie, sprzedaż i zużycie się domykają. Problem pokrycia nie jest polską specjalnością. Polska różni się tym, że luka dotyczy dużo wyższej sprzedaży.</p>
+      </div>
+    </div>
+    <div class="panel flat" style="margin-top:18px">
+      <h4>Wniosek z modelu</h4>
+      <p class="small" style="margin:0" id="gapVerdict"></p>
+    </div>
+  </section>
+
+  <!-- F -->
+  <section class="ch" id="teren">
+    <span class="anchor-alias" id="r6"></span>
+    <div class="ch-head">
+      <div class="kicker"><b>Rozdz. F</b> · dowód: baza VetCode z folderu „klinika”</div>
+      <h2>Jeden gabinet, 10 567 wizyt</h2>
+    </div>
+    <div class="prose">
+      <p>Na pendrivie jest baza programu gabinetowego z lat 2014–2026. Odczytaliśmy ją i policzyliśmy każdy wpis leczenia z antybiotykiem. Nie ma tu nazwisk ani adresów, tylko liczby zbiorcze. To głównie praktyka psio-kocia, ale z ponad 700 wizytami u drobiu i gołębi, więc widać obie strony weterynarii.</p>
+    </div>
+    <div class="kpis" style="margin-top:14px">
+      <div><b class="num">20,2%</b><span>wizyt z co najmniej jednym antybiotykiem</span></div>
+      <div><b class="num">2 203</b><span>wpisy leczenia z antybiotykiem, 65 produktów</span></div>
+      <div><b class="num">64%</b><span>wpisów to amoksycylina LA w iniekcji (Clamoxyl LA, Betamox…)</span></div>
+      <div><b class="num">37%</b><span>wpisów u drobiu to kategoria B AMEG (enrofloksacyna, kolistyna)</span></div>
+    </div>
+    <div class="grid2" style="margin-top:20px;align-items:start">
+      <div>
+        <h4>Udział wizyt z antybiotykiem · według grupy</h4>
+        <div class="chart nomin" id="clinGrp"></div>
+      </div>
+      <div>
+        <h4>Profil kategorii AMEG · udział wpisów</h4>
+        <div class="chart nomin" id="clinAmeg"></div>
+        <div class="legend" style="margin-top:6px"><span><i style="background:var(--bad)"></i>B · ograniczać</span><span><i style="background:var(--warn)"></i>C · ostrożnie</span><span><i style="background:var(--good)"></i>D · rozważnie</span><span><i style="background:var(--eu)"></i>miejscowe (uszy, oczy, skóra)</span></div>
+      </div>
+    </div>
+    <div class="grid2" style="margin-top:20px;align-items:start">
+      <div>
+        <h4>Rok po roku · % wizyt z antybiotykiem</h4>
+        <div class="chart nomin" id="clinYear"></div>
+      </div>
+      <div class="panel">
+        <h4>Na tle profilu UE dla zwierząt towarzyszących</h4>
+        <p class="small" style="margin:0 0 10px">EMA 2024: psy i koty to 1,5% sprzedaży. 91,5% masy to tabletki, penicyliny 48,4%, cefalosporyny I/II gen. 16,9%, pochodne imidazolu (metronidazol) 12,9%.</p>
+        <p class="small" style="margin:0">W tym gabinecie aminopenicyliny dominują jeszcze mocniej (74% wpisów u psów), ale podawane są głównie w iniekcji długo działającej na miejscu, a nie w tabletkach do domu. Cefalosporyn i metronidazolu w wpisach leczenia nie ma wcale. U drobiu obraz jest odwrotny: makrolid tilmikozyna (Pulmotil) i fluorochinolony przez wodę do picia.</p>
+        <p class="note">Klasyfikacja: ATCvet z bazy leków programu + ręczne przypisanie 22 nazw handlowych. „Wpis” to pozycja leczenia w karcie wizyty. Ilości w bazie mają mieszane jednostki, dlatego nie liczymy mg.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- G -->
+  <section class="ch" id="system">
+    <span class="anchor-alias" id="r7"></span>
+    <div class="ch-head">
+      <div class="kicker"><b>Rozdz. G</b> · dowody: „Życie Weterynaryjne” 9/2020 i 7/2022, EUR-Lex</div>
+      <h2>Jak liczą ci, którym spadło</h2>
+    </div>
+    <div class="tblwrap">
+      <table class="tbl">
+        <thead><tr><th>Mechanizm</th><th><span class="cc"><i style="background:var(--nl)"></i>Holandia</span></th><th><span class="cc"><i style="background:var(--de)"></i>Niemcy</span></th><th><span class="cc"><i style="background:var(--fr)"></i>Francja</span></th><th><span class="cc"><i style="background:var(--pl)"></i>Polska</span></th></tr></thead>
+        <tbody>
+          <tr><td><b>Kto mierzy zużycie</b></td><td>SDa, niezależny instytut; dane z każdej fermy</td><td>Baza HIT/TAMG; zgłoszenia co pół roku</td><td>ANSES, platforma CalypsoVet (od IV 2023)</td><td>GIW buduje system teleinformatyczny; do tego czasu papierowa ewidencja u hodowcy</td></tr>
+          <tr><td><b>Wskaźnik</b></td><td>DDDA na zwierzę-rok, osobno dla sektora</td><td>Częstość terapii: zwierzęta × dni ÷ średnia liczba zwierząt</td><td>ALEA: odsetek biomasy leczonej</td><td>Brak wskaźnika gatunkowego</td></tr>
+          <tr><td><b>Benchmark</b></td><td>Progi akcji na fermę: np. brojlery 8 DDDAF, cielęta białe 23</td><td>Mediana i trzeci kwartyl dla kraju; powyżej Q3 plan redukcji w 4 miesiące</td><td>Plany Écoantibio (cel ALEA &lt; 0,3)</td><td>Brak</td></tr>
+          <tr><td><b>Lekarz stada</b></td><td>Obowiązkowa umowa; wizyty: brojlery co wsad, świnie co miesiąc, bydło co 3 miesiące</td><td>Umowa z lekarzem wolnej praktyki, regularne wizyty płatne przez hodowcę</td><td>Lekarz prowadzący, bilans zdrowia stada</td><td>Rozp. 2016/429 przewiduje wizyty; w praktyce system „wyznaczeń” do świadectw zdrowia</td></tr>
+          <tr><td><b>Antybiotyki krytyczne</b></td><td>Od 2013 r. leki III wyboru tylko po antybiogramie</td><td>Obowiązkowy antybiogram przy FQ i cefalosporynach III/IV gen.</td><td>Ograniczenia prawne od 2016</td><td>Wg rozp. 2019/6; cefalosporyny III/IV gen. 2× powyżej średniej UE (2020)</td></tr>
+          <tr><td><b>Małe gospodarstwa</b></td><td>W systemie</td><td>Zwolnione poniżej: 20 opasów, 250 tuczników, 1 000 indyków, 10 000 brojlerów</td><td>—</td><td>Duże rozdrobnienie hodowli</td></tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="grid2" style="margin-top:24px;align-items:start">
+      <div>
+        <h4>Oś czasu</h4>
+        <div class="tl" id="tl"></div>
+      </div>
+      <div>
+        <div class="evcard">
+          <div class="evn"><span>Usługi weterynaryjne · aplikacje</span><span class="stamp ok">✓ KRLW 2025</span></div>
+          <h3>Recepta bez badania?</h3>
+          <p class="small">W czerwcu i lipcu 2025 r. samorząd lekarsko-weterynaryjny wydał serię komunikatów przeciw aplikacjom oferującym „prediagnozy” i zdalne porady. Stanowisko KRLW: każda porada o zdrowiu zwierzęcia jest usługą weterynaryjną, a lekarz nie może rozpocząć ani zalecić leczenia bez fizycznego zbadania zwierzęcia (Kodeks Etyki, art. 17 ust. 2).</p>
+          <p class="small" style="margin:0">W pismach z pendrive'a te komunikaty są czytane jako sygnał, że antybiotyki na dużych fermach bywają wydawane bez pełnego postępowania: bez wywiadu, badania klinicznego i sprawdzenia skuteczności. To hipoteza autora, nie ustalenie organu.</p>
+        </div>
+        <div class="quote">„Antybiotykowe produkty lecznicze nie powinny być stosowane profilaktycznie inaczej niż w wyjątkowych przypadkach, wyłącznie do podawania pojedynczemu zwierzęciu.”<cite>Rozporządzenie (UE) 2019/6, art. 107 ust. 3 · stosowane od 28.01.2022</cite></div>
+        <div class="panel flat">
+          <h4>Cel na 2030</h4>
+          <p class="small" style="margin:0">UE: −50% sprzedaży antybiotyków dla zwierząt gospodarskich i akwakultury względem 2018 r. (Strategia „Od pola do stołu”). W 2024 r. UE była na −24,3% (89,6 vs 118,3 mg/PCU). To cel względny. W pismach z pendrive'a pojawia się „norma 50 mg/kg”, której w przepisach nie ma.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- H -->
+  <section class="ch" id="akta">
+    <span class="anchor-alias" id="r8"></span>
+    <div class="ch-head">
+      <div class="kicker"><b>Rozdz. H</b> · inwentarz i weryfikacja</div>
+      <h2>Co było na pendrivie</h2>
+    </div>
+    <div class="inv">
+      <div><span class="ct">1</span><b>Raport porównawczy .docx</b>PL/DE/NL, bydło, drób, trzoda. Liczby osadzone jako obrazki, tekst z cechami generatora AI.</div>
+      <div><span class="ct">2 + 2</span><b>Strony HTML i infografiki</b>Wcześniejsze wizualizacje: raport interaktywny, kalkulator ESUAvet, dwie grafiki z ChatGPT (19 IX 2026).</div>
+      <div><span class="ct">3</span><b>„Życie Weterynaryjne”</b>Pejsak i Zalewski 7/2022 (tabela ESVAC dla 31 krajów), Kubica 9/2020 (DE, NL), relacja z konferencji 7/2025.</div>
+      <div><span class="ct">≈40</span><b>Pisma z lat 2019–2026</b>Do PLW, WLW, MRiRW, NIK, prokuratury. Użyliśmy tylko danych o zużyciu i tez systemowych, bez nazwisk.</div>
+      <div><span class="ct">8</span><b>Zapisane strony www</b>KRLW o aplikacjach, EMA 2023 (Vetpol), topagrar o „zawyżonym” wskaźniku, rozporządzenia 2016/429 i 2019/6.</div>
+      <div><span class="ct">14</span><b>Pliki Firebird (.fdb)</b>Baza gabinetu VetCode i kopie. Odczytana silnikiem Firebird 2.5, analiza tylko zbiorcza (rozdz. F).</div>
+    </div>
+
+    <h3 style="margin-top:28px">Rejestr twierdzeń</h3>
+    <div class="filters seg" id="ledgerSeg" role="group" aria-label="Filtr werdyktu">
+      <button type="button" data-k="all" aria-pressed="true">wszystkie</button>
+      <button type="button" data-k="ok" aria-pressed="false">potwierdzone</button>
+      <button type="button" data-k="mid" aria-pressed="false">częściowo</button>
+      <button type="button" data-k="no" aria-pressed="false">odrzucone</button>
+    </div>
+    <div class="ledger" id="ledger"></div>
+
+    <div class="sources" id="zrodla" style="margin-top:30px">
+      <h3>Źródła</h3>
+      <ol>
+        <li><a href="https://www.ema.europa.eu/en/documents/report/european-sales-use-antimicrobials-veterinary-medicine-annual-surveillance-report-2024_en.pdf" target="_blank" rel="noopener">EMA, ESUAvet Annual Surveillance Report 2024</a> (tab. 2, sprzedaż wg krajów; pokrycie danych o zużyciu)</li>
+        <li><a href="https://www.ema.europa.eu/en/news/new-data-antimicrobials-sales-use-animals-eu" target="_blank" rel="noopener">EMA: New data on antimicrobials sales and use in animals in the EU</a></li>
+        <li><a href="https://www.ema.europa.eu/en/news/consumption-antimicrobials-animals-reaches-lowest-level-ever-europe" target="_blank" rel="noopener">EMA: ESVAC 2022, −53% w latach 2011–2022</a></li>
+        <li><a href="https://www.bvl.bund.de/SharedDocs/Pressemitteilungen/05_tierarzneimittel/2025/PM_Abgabemengen_Antibiotika_Tiermedizin_2024.html" target="_blank" rel="noopener">BVL: Antibiotikaabgabe in der Tiermedizin 2024</a></li>
+        <li><a href="https://cdn.i-pulse.nl/autoriteitdiergeneesmiddelen/userfiles/EN/SDa-rapporten/sda%20rapport%20AB-gebruik%202024/sda-rapport-with-letter---usage-of-anbiotics-in-agricultural-livestock-in-2024(1).pdf" target="_blank" rel="noopener">SDa: Usage of antibiotics in agricultural livestock in NL, 2024</a></li>
+        <li><a href="https://www.simv.org/actualites/lanses-publie-le-18-novembre-2025-le-rapport-de-suivi-des-ventes-et-des-utilisations-des" target="_blank" rel="noopener">SIMV o raporcie ANSES 2024 (XI 2025)</a></li>
+        <li><a href="https://www.anses.fr/fr/content/suivi-de-lutilisation-des-antimicrobiens-en-medecine-veterinaire-la-france-face-au-defi-de" target="_blank" rel="noopener">ANSES: la France face au défi de la collecte des données</a></li>
+        <li><a href="https://www.farmer.pl/produkcja-zwierzeca/dane-o-zuzyciu-antybiotykow-w-polsce-moga-byc-zawyzone-czy-da-sie-raportowac-bardziej-precyzyjnie,177359.html" target="_blank" rel="noopener">farmer.pl, 18 V 2026: pismo KRIR i odpowiedź MRiRW</a></li>
+        <li><a href="https://www.topagrar.pl/articles/zdrowie-swin/zmiany-w-raportowaniu-zuzycia-antybiotykow-polska-nie-jest-gotowa-2495587" target="_blank" rel="noopener">topagrar, X 2023: Polska nie jest gotowa na raportowanie</a></li>
+        <li>Pejsak Z., Zalewski A., Życie Wet. 2022, 97(7), 438–444 (plik na pendrivie)</li>
+        <li>Kubica M. St., Życie Wet. 2020, 95(9) (plik na pendrivie)</li>
+        <li>Życie Weterynaryjne, lipiec 2025, relacja z konferencji w Szczecinie (plik na pendrivie)</li>
+        <li>Pisma i zestawienia z terenu, 2020–2026; baza VetCode 2014–2026 (pendrive, folder „IW 1” i „klinika”)</li>
+      </ol>
+    </div>
+  </section>
+
+  </main>
+</div>
+
+<footer>
+  <span>Tony bez adresu · opracowanie materiałów z pendrive'a · IX 2026</span>
+  <span>Dane ESUAvet 2024 i 2019 (ESVAC) nie są bezpośrednio porównywalne.</span>
+</footer>
+</div>
+
+<div class="tip" id="tip" role="tooltip"></div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+<script>
+(function(){
+"use strict";
+const $=s=>document.querySelector(s), $$=s=>Array.from(document.querySelectorAll(s));
+const css=n=>getComputedStyle(document.documentElement).getPropertyValue(n).trim();
+const fmt=(v,d=1)=>Number(v).toLocaleString("pl-PL",{minimumFractionDigits:d,maximumFractionDigits:d});
+const reduce=matchMedia("(prefers-reduced-motion: reduce)").matches;
+const tip=$("#tip");
+function showTip(html,x,y){tip.innerHTML=html;tip.classList.add("on");const w=tip.offsetWidth,h=tip.offsetHeight;let L=x+14,T=y+14;if(L+w>innerWidth-8)L=x-w-14;if(T+h>innerHeight-8)T=y-h-14;tip.style.left=Math.max(8,L)+"px";tip.style.top=Math.max(8,T)+"px"}
+function hideTip(){tip.classList.remove("on")}
+const NS="http://www.w3.org/2000/svg";
+function el(tag,attrs,parent){const e=document.createElementNS(NS,tag);for(const k in attrs)e.setAttribute(k,attrs[k]);if(parent)parent.appendChild(e);return e}
+function hov(node,html){node.style.cursor="default";node.addEventListener("pointermove",e=>showTip(html,e.clientX,e.clientY));node.addEventListener("pointerleave",hideTip)}
+
+/* ---------- WŁASNE IKONY INLINE SVG ---------- */
+function animalSVG(kind,cls=""){
+  const col={cow:"--animal-cow",pig:"--animal-pig",chicken:"--animal-chicken",turkey:"--animal-turkey"}[kind];
+  const shapes={
+    cow:`<rect x="9" y="20" width="37" height="24" rx="7"/><path d="M43 24l10-7 7 5-2 17-12 2z"/><path d="M51 19l-2-7 6 5m3 5 5-5" fill="none" stroke="var(${col})" stroke-width="3.5" stroke-linecap="round"/><path d="M15 42v11m24-11v11m14-16 5 10" fill="none" stroke="var(${col})" stroke-width="5" stroke-linecap="round"/><circle cx="55" cy="27" r="1.8" fill="var(--flag-white)"/>`,
+    pig:`<ellipse cx="31" cy="33" rx="24" ry="16"/><path d="M16 21l3-10 9 10m14 0 5-9 5 13"/><rect x="45" y="28" width="17" height="11" rx="5"/><circle cx="50" cy="33" r="1.5" fill="var(--flag-white)"/><circle cx="57" cy="33" r="1.5" fill="var(--flag-white)"/><path d="M15 45v8m31-8v8M7 31c-7-1-6-9-1-8" fill="none" stroke="var(${col})" stroke-width="4" stroke-linecap="round"/>`,
+    chicken:`<ellipse cx="30" cy="36" rx="19" ry="16"/><circle cx="46" cy="22" r="11"/><path d="M45 11c-2-7 4-8 5-3 2-5 8-2 5 3zM55 22l9 5-10 3z"/><path d="M25 48l-2 10m15-10 3 10M19 58h9m9 0h9" fill="none" stroke="var(${col})" stroke-width="3" stroke-linecap="round"/><path d="M12 31L3 19l13 4z"/><circle cx="49" cy="20" r="1.7" fill="var(--ink)"/>`,
+    turkey:`<path d="M28 38C7 39 1 25 9 13c6 5 9 10 10 16-2-14 4-23 12-25 4 8 4 16 1 24 5-14 14-18 22-14 0 11-6 19-16 24z" opacity=".92"/><ellipse cx="35" cy="40" rx="16" ry="14"/><circle cx="48" cy="25" r="8"/><path d="M54 25l9 4-9 4M48 32c5 5 2 10-2 10"/><path d="M31 51l-2 9m12-9 3 9M25 60h9m6 0h9" fill="none" stroke="var(${col})" stroke-width="3" stroke-linecap="round"/><circle cx="50" cy="23" r="1.5" fill="var(--ink)"/>`
+  };
+  return `<svg class="animal-icon ${cls}" viewBox="0 0 66 64" aria-hidden="true" focusable="false" fill="var(${col})">${shapes[kind]}</svg>`;
+}
+function flagSVG(k){
+  const clip=`fl-${k}-${Math.random().toString(36).slice(2,8)}`;
+  let s="";
+  if(k==="PL")s=`<rect width="40" height="20" y="0" fill="var(--flag-white)"/><rect width="40" height="20" y="20" fill="var(--flag-red)"/>`;
+  if(k==="DE")s=`<rect width="40" height="13.5" fill="var(--flag-black)"/><rect width="40" height="13.5" y="13.3" fill="var(--flag-red)"/><rect width="40" height="13.5" y="26.6" fill="var(--flag-gold)"/>`;
+  if(k==="NL")s=`<rect width="40" height="13.5" fill="var(--flag-red)"/><rect width="40" height="13.5" y="13.3" fill="var(--flag-white)"/><rect width="40" height="13.5" y="26.6" fill="var(--flag-blue)"/>`;
+  if(k==="FR")s=`<rect width="13.5" height="40" fill="var(--flag-blue)"/><rect width="13.5" height="40" x="13.3" fill="var(--flag-white)"/><rect width="13.5" height="40" x="26.6" fill="var(--flag-red)"/>`;
+  if(k==="EU")s=`<rect width="40" height="40" fill="var(--flag-eu)"/>${Array.from({length:12},(_,i)=>{const a=i*Math.PI/6-Math.PI/2;return `<circle cx="${20+10*Math.cos(a)}" cy="${20+10*Math.sin(a)}" r="1.7" fill="var(--flag-gold)"/>`}).join("")}`;
+  return `<svg class="flag-svg" viewBox="0 0 40 40" aria-hidden="true" focusable="false"><defs><clipPath id="${clip}"><circle cx="20" cy="20" r="18"/></clipPath></defs><g clip-path="url(#${clip})">${s}</g><circle cx="20" cy="20" r="18" fill="none" stroke="var(--flag-ring)" stroke-width="1.5"/></svg>`;
+}
+function svgFlag(parent,k,x,y,r=6){
+  const g=el("g",{"aria-hidden":"true"},parent),id=`sf-${k}-${Math.random().toString(36).slice(2,7)}`;
+  const defs=el("defs",{},g),cp=el("clipPath",{id},defs);el("circle",{cx:x,cy:y,r},cp);
+  const add=(attrs)=>el("rect",Object.assign({"clip-path":`url(#${id})`},attrs),g);
+  if(k==="PL"){add({x:x-r,y:y-r,width:2*r,height:r,fill:"var(--flag-white)"});add({x:x-r,y,width:2*r,height:r,fill:"var(--flag-red)"})}
+  if(k==="DE"){add({x:x-r,y:y-r,width:2*r,height:2*r/3,fill:"var(--flag-black)"});add({x:x-r,y:y-r/3,width:2*r,height:2*r/3,fill:"var(--flag-red)"});add({x:x-r,y:y+r/3,width:2*r,height:2*r/3,fill:"var(--flag-gold)"})}
+  if(k==="NL"){add({x:x-r,y:y-r,width:2*r,height:2*r/3,fill:"var(--flag-red)"});add({x:x-r,y:y-r/3,width:2*r,height:2*r/3,fill:"var(--flag-white)"});add({x:x-r,y:y+r/3,width:2*r,height:2*r/3,fill:"var(--flag-blue)"})}
+  if(k==="FR"){add({x:x-r,y:y-r,width:2*r/3,height:2*r,fill:"var(--flag-blue)"});add({x:x-r/3,y:y-r,width:2*r/3,height:2*r,fill:"var(--flag-white)"});add({x:x+r/3,y:y-r,width:2*r/3,height:2*r,fill:"var(--flag-red)"})}
+  if(k==="EU"){el("circle",{cx:x,cy:y,r,fill:"var(--flag-eu)"},g);for(let i=0;i<12;i++){const a=i*Math.PI/6-Math.PI/2;el("circle",{cx:x+3.5*Math.cos(a),cy:y+3.5*Math.sin(a),r:.7,fill:"var(--flag-gold)"},g)}}
+  el("circle",{cx:x,cy:y,r,fill:"none",stroke:"var(--flag-ring)","stroke-width":.8},g);return g;
+}
+function chapterArt(i){
+  if(i===3)return `<svg viewBox="0 0 170 100" aria-hidden="true">${animalSVG("cow").replace('class="animal-icon "','x="0" y="26" width="52" height="52"')}${animalSVG("pig").replace('class="animal-icon "','x="42" y="27" width="52" height="52"')}${animalSVG("chicken").replace('class="animal-icon "','x="82" y="24" width="50" height="50"')}${animalSVG("turkey").replace('class="animal-icon "','x="120" y="22" width="50" height="50"')}</svg>`;
+  const arts=[
+    `<path d="M8 73h154M18 73V38h48v35M24 38l18-18 18 18M89 73V45h64v28M96 45l20-19 32 19M35 73V54h17v19m57 0V56h19v17"/><path d="M71 30h19v43" stroke-dasharray="5 4"/>`,
+    `<path d="M12 77h148M24 69l18-32 18 17 18-38 21 38 18-24 28 39"/><rect x="26" y="51" width="12" height="18" rx="2"/><rect x="69" y="37" width="12" height="32" rx="2"/><rect x="112" y="43" width="12" height="26" rx="2"/>`,
+    `<path d="M25 20v55m0 0-14-15m14 15 14-15M82 78V24m0 0L68 39m14-15 14 15M138 20v55m0 0-14-15m14 15 14-15"/>`,
+    "",
+    `<path d="M84 18v57M45 31h78M31 31l-19 38h38L31 31zm106 0-19 38h38l-19-38zM63 80h42"/><circle cx="84" cy="18" r="7"/>`,
+    `<path d="M24 76V25h67v51M34 38h46M34 51h24M108 76V42h36v34M119 55h14M18 76h137"/><path d="M105 22h24m-12-12v24"/>`,
+    `<path d="M16 72h140M29 72V38h38v34M35 38l13-18 13 18M91 72V28h49v44M100 41h31m-31 14h31"/><path d="M74 47h13m-6-7 7 7-7 7"/>`,
+    `<path d="M35 12h76l22 22v54H35zM111 12v22h22M51 48h62M51 62h48"/><circle cx="117" cy="70" r="18"/><path d="M107 70l7 7 14-18"/>`
+  ];
+  return `<svg viewBox="0 0 170 100" aria-hidden="true" fill="none" stroke="var(--section-ink)" stroke-width="5" stroke-linecap="round" stroke-linejoin="round">${arts[i]}</svg>`;
+}
+function enhanceCountryFlags(root=document){
+  root.querySelectorAll(".cc").forEach(cc=>{if(cc.querySelector(".flag-svg"))return;const t=cc.textContent.trim();const k=t.includes("Polska")?"PL":t.includes("Niemcy")?"DE":t.includes("Holandia")?"NL":t.includes("Francja")?"FR":t.includes("UE-27")?"EU":null;if(k)cc.insertAdjacentHTML("afterbegin",flagSVG(k))});
+}
+function makeTablesResponsive(){
+  document.querySelectorAll("table").forEach(table=>{const heads=[...table.querySelectorAll("thead th")].map(th=>th.textContent.trim());table.querySelectorAll("tbody tr").forEach(tr=>[...tr.children].forEach((td,i)=>td.dataset.label=heads[i]||""))});
+}
+function decoratePage(){
+  const hero=document.querySelector(".hero");hero.insertAdjacentHTML("afterbegin",`<div class="hero-scene" aria-hidden="true"><svg viewBox="0 0 1200 600" preserveAspectRatio="xMidYMid slice"><path d="M0 474h1200v126H0z" fill="var(--farm)"/><path d="M0 477c170-85 300-45 430-10s240 60 390 4 245-62 380-7v136H0z" fill="var(--sky)" opacity=".38"/><path d="M70 477V350h180v127M94 350l66-74 66 74M133 477v-75h55v75M880 477V337h210v140M915 337l70-68 72 68M955 477v-82h60v82" fill="none" stroke="var(--illustration-line)" stroke-width="12" opacity=".56"/><circle cx="1040" cy="120" r="72" fill="var(--flag-gold)" opacity=".45"/></svg></div>`);
+  const ids=["metoda","sprzedaz","trend","gatunki","luka","teren","system","akta"];
+  ids.forEach((id,i)=>{const h=document.querySelector(`#${id} .ch-head`),b=h.querySelector(".kicker b");b.dataset.ch=String(i+1);h.insertAdjacentHTML("beforeend",`<div class="chapter-art">${chapterArt(i)}</div>`)});
+  const species=["turkey","chicken","pig","cow"];
+  document.querySelectorAll("#spTabs button").forEach((b,i)=>b.insertAdjacentHTML("afterbegin",animalSVG(species[i],"sm")));
+  document.querySelectorAll("#covMx .h").forEach((h,i)=>{if(i>0)h.insertAdjacentHTML("afterbegin",animalSVG(species[i-1],"sm"))});
+  document.querySelectorAll("#idx a").forEach((a,i)=>a.insertAdjacentHTML("afterbegin",`<span class="toc-ic">${i===3?animalSVG("turkey","sm"):chapterArt(i)}</span>`));
+  enhanceCountryFlags();
+  makeTablesResponsive();
+  const flagBand=document.querySelector(".evtag");flagBand.insertAdjacentHTML("beforeend",`<span aria-label="Polska, Niemcy, Holandia, Francja, Unia Europejska" style="display:inline-flex;gap:4px">${["PL","DE","NL","FR","EU"].map(flagSVG).join("")}</span>`);
+  document.querySelectorAll(".chart").forEach((c,i)=>{const io=new IntersectionObserver(es=>{if(es[0].isIntersecting){c.classList.add("is-entering");io.disconnect()}},{threshold:.18});io.observe(c)});
+}
+
+/* ---------- DATA ---------- */
+const C={PL:"--pl",DE:"--de",NL:"--nl",FR:"--fr",EU:"--eu"};
+const NAME={PL:"Polska",DE:"Niemcy",NL:"Holandia",FR:"Francja",EU:"UE-27"};
+// ESUAvet 2024, Table 2: tonnes, biomass (mln t), mg/kg
+const E24={AT:["Austria",35.5,1.8,20.1],BE:["Belgia",114.2,3.2,35.1],BG:["Bułgaria",38.6,0.74,51.9],HR:["Chorwacja",16.8,0.47,35.4],CY:["Cypr",22.7,0.20,112.9],CZ:["Czechy",29.7,1.6,19.1],DK:["Dania",78.4,3.5,22.2],EE:["Estonia",4.9,0.26,18.8],FI:["Finlandia",7.3,0.85,8.6],FR:["Francja",255.9,15.7,16.3],DE:["Niemcy",553.6,13.9,39.8],GR:["Grecja",96.5,2.4,41.0],HU:["Węgry",88.6,1.8,49.6],IE:["Irlandia",74.7,4.3,17.2],IT:["Włochy",466.7,5.8,79.9],LV:["Łotwa",4.2,0.33,12.8],LT:["Litwa",16.3,0.61,26.6],LU:["Luksemburg",1.1,0.13,8.2],MT:["Malta",1.3,0.03,40.4],NL:["Holandia",117.6,4.8,24.5],PL:["Polska",732.1,9.5,76.9],PT:["Portugalia",112.3,2.3,49.6],RO:["Rumunia",195.5,4.2,46.5],SK:["Słowacja",11.2,0.50,22.3],SI:["Słowenia",4.6,0.39,11.7],ES:["Hiszpania",1249.5,13.4,93.1],SE:["Szwecja",8.7,1.4,6.1],IS:["Islandia",0.78,0.18,4.4],NO:["Norwegia",4.7,2.6,1.8]};
+const EU24={t:4338.0,b:94.1,v:46.1};
+// ESVAC 2019 (Życie Wet. 2022, tab. 1): tonnes, PCU (1000 t), mg/PCU
+const E19={AT:[40.5,950.7,42.6],BE:[175.1,1717.3,101.9],BG:[43.4,385.5,112.7],HR:[20.1,319.4,62.8],CY:[49.4,123.5,399.7],CZ:[37.8,702.0,53.8],DK:[87.7,2362.4,37.1],EE:[6.1,114.9,53.5],FI:[9.4,494.4,19.1],FR:[407.4,6985.4,58.3],GR:[99.8,1199.6,83.2],ES:[1007.2,7950.0,126.7],NL:[153.1,3172.4,48.2],IE:[87.5,2144.0,40.8],IS:[0.5,131.3,3.5],LT:[6.5,310.7,20.8],LU:[1.6,53.8,29.0],LV:[6.6,161.3,41.1],MT:[1.5,13.8,110.3],DE:[654.5,8327.2,78.6],NO:[4.7,1999.6,2.3],PL:[840.6,4538.0,185.2],PT:[149.5,1019.8,146.6],RO:[169.0,3134.6,53.9],SK:[10.2,241.8,42.3],SI:[7.9,177.1,44.9],CH:[29.2,817.4,35.7],SE:[8.6,781.1,11.1],HU:[152.1,801.8,189.7],UK:[216.2,7099.9,30.5],IT:[731.3,3827.5,191.1]};
+const EU19=84.0;
+const NAMES19={CH:"Szwajcaria",UK:"Wielka Brytania"};
+const POS={AT:[14.5,47.5],BE:[4.5,50.6],BG:[25.5,42.7],HR:[16,45.2],CY:[33.2,35.1],CZ:[15.3,49.8],DK:[9.5,56],EE:[25.5,58.7],FI:[26,63],FR:[2.4,46.6],DE:[10.4,51.1],GR:[22,39.4],HU:[19.5,47.2],IE:[-8,53.3],IT:[12.6,42.6],LV:[24.6,56.9],LT:[23.9,55.3],LU:[6.1,49.8],MT:[14.4,35.9],NL:[5.3,52.3],PL:[19.4,52.1],PT:[-8.2,39.6],RO:[25,45.9],SK:[19.7,48.7],SI:[14.8,46.1],ES:[-3.7,40.2],SE:[16,62],IS:[-14,63.5],NO:[9,61.5],CH:[8.2,46.8],UK:[-2,53.5]};
+
+/* ---------- HERO CUBES (Three.js) ---------- */
+function makeRenderer(canvas){
+  const r=new THREE.WebGLRenderer({canvas,antialias:true,alpha:true});
+  r.setPixelRatio(Math.min(2,devicePixelRatio||1));
+  r.setClearColor(0x000000,0);
+  r.shadowMap.enabled=true;
+  r.shadowMap.type=THREE.PCFSoftShadowMap;
+  return r;
+}
+function roundedCubeGeometry(size=.96,r=.09){
+  const s=size/2-r,sh=new THREE.Shape();
+  sh.moveTo(-s-r,-s);sh.quadraticCurveTo(-s-r,-s-r,-s,-s-r);sh.lineTo(s,-s-r);sh.quadraticCurveTo(s+r,-s-r,s+r,-s);sh.lineTo(s+r,s);sh.quadraticCurveTo(s+r,s+r,s,s+r);sh.lineTo(-s,s+r);sh.quadraticCurveTo(-s-r,s+r,-s-r,s);sh.closePath();
+  const g=new THREE.ExtrudeGeometry(sh,{depth:size-2*r,bevelEnabled:true,bevelSegments:2,steps:1,bevelSize:r,bevelThickness:r,curveSegments:2});g.center();return g;
+}
+function dragRotate(canvas,state){
+  let down=false,px=0,py=0;
+  canvas.addEventListener("pointerdown",e=>{down=true;px=e.clientX;py=e.clientY;state.auto=false;canvas.setPointerCapture(e.pointerId)});
+  canvas.addEventListener("pointermove",e=>{if(!down)return;state.yaw-=(e.clientX-px)*0.008;state.pitch=Math.max(0.15,Math.min(1.25,state.pitch+(e.clientY-py)*0.006));px=e.clientX;py=e.clientY;state.dirty=true});
+  const up=()=>{down=false};canvas.addEventListener("pointerup",up);canvas.addEventListener("pointercancel",up);
+}
+function visibleLoop(canvas,frame){
+  let vis=false,raf=0;
+  const io=new IntersectionObserver(es=>{vis=es[0].isIntersecting;if(vis&&!raf)raf=requestAnimationFrame(tick)},{threshold:0.01});
+  io.observe(canvas);
+  function tick(t){raf=0;if(!vis)return;frame(t);raf=requestAnimationFrame(tick)}
+  requestAnimationFrame(t=>{if(!vis)frame(t)});
+  return ()=>{if(!raf)raf=requestAnimationFrame(tick);else if(!vis)requestAnimationFrame(t=>frame(t))};
+}
+
+const TOTAL=732; // 732.1 t
+const REF={EU:46.1,DE:39.8,NL:24.5,FR:16.3};
+function initCubes(){
+  const canvas=$("#cubes"); if(!window.THREE){canvas.replaceWith(Object.assign(document.createElement("p"),{className:"note",textContent:"Model 3D wymaga WebGL; liczby poniżej pozostają aktualne."}));return}
+  const R=makeRenderer(canvas), scene=new THREE.Scene(), cam=new THREE.PerspectiveCamera(34,1,0.1,400);
+  const W=16,D=12, layer=W*D, s=1, gap=0.18;
+  const geo=roundedCubeGeometry(s,.085);
+  const mat=new THREE.MeshStandardMaterial({color:0xffffff,roughness:.72,metalness:.02});
+  const mesh=new THREE.InstancedMesh(geo,mat,TOTAL);
+  mesh.castShadow=true;mesh.receiveShadow=true;
+  const m4=new THREE.Matrix4(), col=new THREE.Color();
+  const pos=[];
+  for(let i=0;i<TOTAL;i++){const L=Math.floor(i/layer),k=i%layer,x=k%W,z=Math.floor(k/W);pos.push([(x-(W-1)/2)*(s+gap),L*(s+gap)+s/2,(z-(D-1)/2)*(s+gap)])}
+  scene.add(mesh);
+  const amb=new THREE.HemisphereLight(0xdff3ff,0x335466,0.76); scene.add(amb);
+  const dl=new THREE.DirectionalLight(0xfff2d8,1.0); dl.position.set(9,24,14);dl.castShadow=true;dl.shadow.mapSize.set(1024,1024);dl.shadow.camera.left=-22;dl.shadow.camera.right=22;dl.shadow.camera.top=22;dl.shadow.camera.bottom=-22; scene.add(dl);
+  const dl2=new THREE.DirectionalLight(0xb8dcff,0.34); dl2.position.set(-12,8,-10); scene.add(dl2);
+  const ground=new THREE.Mesh(new THREE.PlaneGeometry(34,30),new THREE.ShadowMaterial({color:0x07131c,opacity:.18}));ground.rotation.x=-Math.PI/2;ground.position.y=-.08;ground.receiveShadow=true;scene.add(ground);
+  const grid=new THREE.GridHelper(30,30,0x999999,0x999999); grid.position.y=-0.02; scene.add(grid);
+  const st={yaw:0.75,pitch:0.62,auto:!reduce,dirty:true,cut:438,anim:438,drop:[]};
+  // drop-in animation
+  const t0=performance.now();
+  const offscreen=canvas.getBoundingClientRect().top>innerHeight;
+  for(let i=0;i<TOTAL;i++)st.drop[i]=(reduce||offscreen)?1:0;
+  let colors={};
+  function readColors(){colors={base:new THREE.Color(css("--cube-base")),pl:new THREE.Color(css("--pl")),grid:new THREE.Color(css("--cube-grid"))};grid.material.color=colors.grid;grid.material.opacity=0.9;st.dirty=true}
+  readColors();
+  function layout(){
+    for(let i=0;i<TOTAL;i++){
+      const p=pos[i], d=st.drop[i], y=p[1]+(1-d)*(12+ (i%29)*0.3);
+      m4.makeTranslation(p[0],y,p[2]); mesh.setMatrixAt(i,m4);
+      col.copy(i<Math.round(st.anim)?colors.base:colors.pl); mesh.setColorAt(i,col);
+    }
+    mesh.instanceMatrix.needsUpdate=true; if(mesh.instanceColor)mesh.instanceColor.needsUpdate=true;
+  }
+  function resize(){const w=canvas.clientWidth,h=canvas.clientHeight;if(!w)return;R.setSize(w,h,false);cam.aspect=w/h;cam.updateProjectionMatrix();st.dirty=true}
+  new ResizeObserver(resize).observe(canvas); resize();
+  dragRotate(canvas,st);
+  const kick=visibleLoop(canvas,(t)=>{
+    let moving=false;
+    if(!reduce){const e=(t-t0)/1000;for(let i=0;i<TOTAL;i++){if(st.drop[i]<1){const start=(Math.floor(i/layer)*0.35)+((i%layer)/layer)*0.9;const v=Math.min(1,Math.max(0,(e-start)/0.55));st.drop[i]=1-Math.pow(1-v,3);moving=true}}}
+    if(Math.abs(st.anim-st.cut)>0.4){st.anim+= (st.cut-st.anim)*0.12;moving=true}else st.anim=st.cut;
+    if(st.auto){st.yaw+=0.0022;moving=true}
+    if(!moving&&!st.dirty)return;
+    layout();
+    const r=30; cam.position.set(Math.sin(st.yaw)*Math.cos(st.pitch)*r,Math.sin(st.pitch)*r+1,Math.cos(st.yaw)*Math.cos(st.pitch)*r); cam.lookAt(0,2.2,0);
+    R.render(scene,cam); st.dirty=false;
+  });
+  function setRef(k){
+    const v=REF[k], fit=Math.round(9.5*v), excess=Math.round(732.1-9.5*v);
+    st.cut=Math.min(TOTAL,fit); st.dirty=true; kick();
+    $("#cubeRead").innerHTML=`Przy intensywności <b>${k==="EU"?"średniej UE":NAME[k]==="Niemcy"?"Niemiec":NAME[k]==="Holandia"?"Holandii":"Francji"}</b> (${fmt(v)} mg/kg) polska biomasa 9,5 mln t potrzebowałaby ok. <b>${fit} t</b>. Sprzedano 732 t, czyli <b style="color:var(--pl)">o ${excess} t więcej</b> (${fmt(732.1/fit,1)}×).`;
+    $$("#cmpSeg button").forEach(b=>b.setAttribute("aria-pressed",b.dataset.k===k));
+  }
+  $$("#cmpSeg button").forEach(b=>b.addEventListener("click",()=>setRef(b.dataset.k)));
+  setRef("EU");
+  return {refresh(){readColors();kick()}};
+}
+
+/* ---------- EUROPE 3D ---------- */
+function initEurope(){
+  const canvas=$("#europe"); if(!window.THREE){canvas.remove();return {refresh(){}}}
+  const R=makeRenderer(canvas), scene=new THREE.Scene(), cam=new THREE.PerspectiveCamera(32,1,0.1,500);
+  scene.add(new THREE.AmbientLight(0xffffff,0.6));
+  const dl=new THREE.DirectionalLight(0xffffff,0.6); dl.position.set(10,30,20); scene.add(dl);
+  const grid=new THREE.GridHelper(80,40,0x999999,0x999999); scene.add(grid);
+  const geo=new THREE.BoxGeometry(1,1,1); geo.translate(0,0.5,0);
+  const bars={}; const group=new THREE.Group(); scene.add(group);
+  const project=(lon,lat)=>[(lon-12)*1.05,-(lat-50)*1.45];
+  Object.keys(POS).forEach(k=>{const m=new THREE.Mesh(geo,new THREE.MeshLambertMaterial({color:0xffffff}));const p=project(...POS[k]);m.position.set(p[0],0,p[1]);m.userData.k=k;group.add(m);bars[k]=m});
+  const st={yaw:0.2,pitch:0.78,auto:!reduce,dirty:true,year:"2024",cur:{},tgt:{}};
+  let cols={};
+  function readColors(){cols={pl:new THREE.Color(css("--pl")),de:new THREE.Color(css("--de")),nl:new THREE.Color(css("--nl")),fr:new THREE.Color(css("--fr")),base:new THREE.Color(css("--cube-base")),grid:new THREE.Color(css("--cube-grid"))};grid.material.color=cols.grid;paint();st.dirty=true}
+  function paint(){Object.keys(bars).forEach(k=>{const c=k==="PL"?cols.pl:k==="DE"?cols.de:k==="NL"?cols.nl:k==="FR"?cols.fr:cols.base;bars[k].material.color.copy(c)})}
+  function setYear(y){
+    st.year=y;
+    Object.keys(bars).forEach(k=>{
+      let h=0,f=0;
+      if(y==="2024"){const d=E24[k];if(d){h=d[3]/6;f=Math.sqrt(d[2])*1.25}}
+      else{const d=E19[k];if(d){h=Math.min(d[2],200)/15;f=Math.sqrt(d[1]/1000)*1.25}}
+      st.tgt[k]={h:Math.max(h,0.001),f:Math.max(f,0.35),on:h>0};
+      if(!st.cur[k])st.cur[k]={h:0.001,f:st.tgt[k].f};
+    });
+    $("#euHead").textContent=y==="2024"?"EUROPA 2024 · wysokość = mg/kg · podstawa = biomasa":"EUROPA 2019 · wysokość = mg/PCU (Cypr ucięty na 200) · podstawa = PCU";
+    st.dirty=true; kick();
+  }
+  function resize(){const w=canvas.clientWidth,h=canvas.clientHeight;if(!w)return;R.setSize(w,h,false);cam.aspect=w/h;cam.updateProjectionMatrix();st.dirty=true}
+  new ResizeObserver(resize).observe(canvas); resize();
+  dragRotate(canvas,st);
+  const ray=new THREE.Raycaster(), mv=new THREE.Vector2();
+  canvas.addEventListener("pointermove",e=>{
+    const r=canvas.getBoundingClientRect(); mv.x=((e.clientX-r.left)/r.width)*2-1; mv.y=-((e.clientY-r.top)/r.height)*2+1;
+    ray.setFromCamera(mv,cam); const hit=ray.intersectObjects(group.children)[0];
+    if(hit&&st.tgt[hit.object.userData.k]&&st.tgt[hit.object.userData.k].on){const k=hit.object.userData.k;
+      if(st.year==="2024"){const d=E24[k];showTip(`<b>${d[0]}</b><br>${fmt(d[3])} mg/kg · ${fmt(d[1])} t<br>biomasa ${fmt(d[2],2)} mln t`,e.clientX,e.clientY)}
+      else{const d=E19[k];showTip(`<b>${(E24[k]||[NAMES19[k]])[0]}</b> (2019)<br>${fmt(d[2])} mg/PCU · ${fmt(d[0])} t`,e.clientX,e.clientY)}
+    } else hideTip();
+  });
+  canvas.addEventListener("pointerleave",hideTip);
+  const kick=visibleLoop(canvas,()=>{
+    let moving=false;
+    Object.keys(bars).forEach(k=>{const c=st.cur[k],t=st.tgt[k];if(!c||!t)return;const dh=t.h-c.h,df=t.f-c.f;if(Math.abs(dh)>0.002||Math.abs(df)>0.002){c.h+=dh*0.12;c.f+=df*0.12;moving=true}else{c.h=t.h;c.f=t.f}
+      const m=bars[k];m.visible=t.on||c.h>0.02;m.scale.set(c.f,c.h,c.f)});
+    if(st.auto){st.yaw=0.2+Math.sin(performance.now()/5200)*0.35;moving=true}
+    if(!moving&&!st.dirty)return;
+    const r=62; cam.position.set(Math.sin(st.yaw)*Math.cos(st.pitch)*r,Math.sin(st.pitch)*r,Math.cos(st.yaw)*Math.cos(st.pitch)*r+4); cam.lookAt(0,3,2);
+    R.render(scene,cam); st.dirty=false;
+  });
+  $$("#euSeg button").forEach(b=>b.addEventListener("click",()=>{$$("#euSeg button").forEach(x=>x.setAttribute("aria-pressed",x===b));setYear(b.dataset.k);drawRank(b.dataset.k)}));
+  readColors(); setYear("2024");
+  return {refresh(){readColors();kick()}};
+}
+
+/* ---------- RANK CHART ---------- */
+function drawRank(year){
+  const box=$("#rankChart"); box.innerHTML="";
+  const rows=year==="2024"?Object.keys(E24).map(k=>({k,n:E24[k][0],v:E24[k][3]})):Object.keys(E19).map(k=>({k,n:(E24[k]||[NAMES19[k]])[0],v:E19[k][2]}));
+  rows.sort((a,b)=>b.v-a.v);
+  const avg=year==="2024"?EU24.v:EU19;
+  $("#rankLbl").textContent=year==="2024"?"2024, mg/kg":"2019, mg/PCU";
+  const rh=17, W=520, L=118, Rm=46, H=rows.length*rh+34;
+  const max=year==="2024"?120:400;
+  const svg=el("svg",{viewBox:`0 0 ${W} ${H}`,role:"img","aria-label":"Ranking krajów według intensywności sprzedaży"},box);
+  const x=v=>L+(v/max)*(W-L-Rm);
+  const ticks=year==="2024"?[0,25,50,75,100]:[0,100,200,300,400];
+  ticks.forEach(t=>{el("line",{x1:x(t),x2:x(t),y1:18,y2:H-8,class:"gr"},svg);const tx=el("text",{x:x(t),y:12,"font-size":10,"text-anchor":"middle"},svg);tx.textContent=t});
+  rows.forEach((r,i)=>{
+    const y=22+i*rh, focus=["PL","DE","NL","FR"].includes(r.k);
+    if(focus)svgFlag(svg,r.k,L-108,y+7,6);
+    const t=el("text",{x:L-8,y:y+10,"font-size":11,"text-anchor":"end","font-weight":focus?600:400},svg);t.textContent=r.n; if(focus)t.style.fill="var(--ink)";
+    const rect=el("rect",{x:L,y:y+2,width:Math.max(1,x(r.v)-L),height:rh-5,rx:2,fill:focus?`var(${C[r.k]})`:"var(--cube-base)"},svg);
+    const vt=el("text",{x:x(r.v)+5,y:y+10.5,"font-size":10.5},svg);vt.textContent=fmt(r.v);
+    hov(rect,`<b>${r.n}</b><br>${fmt(r.v)} ${year==="2024"?"mg/kg":"mg/PCU"}<br>${fmt(r.v/avg,2)}× średnia`);
+  });
+  const ax=x(avg);
+  el("line",{x1:ax,x2:ax,y1:16,y2:H-6,stroke:"var(--ink)","stroke-width":1.2,"stroke-dasharray":"4 3"},svg);
+  const at=el("text",{x:ax+4,y:H-2,"font-size":10,"font-weight":600},svg);at.textContent=`średnia ${fmt(avg)}`;at.style.fill="var(--ink)";
+}
+
+/* ---------- FOUR TABLE ---------- */
+function drawFour(){
+  const tb=$("#fourTbl tbody");
+  const rows=["PL","DE","NL","FR"].map(k=>({k,d:E24[k]}));
+  tb.innerHTML=rows.map(r=>`<tr class="${r.k==="PL"?"me":""}"><td><span class="cc"><i style="background:var(${C[r.k]})"></i>${r.d[0]}</span></td><td class="r num">${fmt(r.d[1])}</td><td class="r num">${fmt(r.d[2],1)}</td><td class="r num"><b>${fmt(r.d[3])}</b></td><td class="r num">${fmt(r.d[3]/EU24.v,2)}</td></tr>`).join("")+
+  `<tr><td><span class="cc"><i style="background:var(--eu)"></i>UE-27</span></td><td class="r num">${fmt(EU24.t)}</td><td class="r num">${fmt(EU24.b)}</td><td class="r num"><b>${fmt(EU24.v)}</b></td><td class="r num">1,00</td></tr>`;
+  enhanceCountryFlags(tb);
+}
+
+/* ---------- CHANGE CHART ---------- */
+function drawChange(){
+  const box=$("#chgChart");
+  const rows=[{k:"PL",n:"Polska",v:55.2},{k:"ES",n:"Hiszpania",v:-65},{k:"CZ",n:"Czechy",v:-50},{k:"EU",n:"UE (31 krajów)",v:-53},{k:"DE",n:"Niemcy",v:-64},{k:"FR",n:"Francja",v:-65},{k:"NL",n:"Holandia",v:-67.5}];
+  const W=520,H=rows.length*34+36,L=120,Rm=20;
+  const svg=el("svg",{viewBox:`0 0 ${W} ${H}`,role:"img","aria-label":"Procentowa zmiana sprzedaży 2011-2022"},box);
+  const x=v=>L+((v+80)/160)*(W-L-Rm);
+  [-75,-50,-25,0,25,50,75].forEach(t=>{el("line",{x1:x(t),x2:x(t),y1:20,y2:H-6,class:t===0?"ax":"gr"},svg);const tt=el("text",{x:x(t),y:13,"font-size":10,"text-anchor":"middle"},svg);tt.textContent=(t>0?"+":"")+t+"%"});
+  rows.forEach((r,i)=>{
+    const y=24+i*34, c=C[r.k]?`var(${C[r.k]})`:"var(--cube-base)";
+    if(["PL","DE","NL","FR","EU"].includes(r.k))svgFlag(svg,r.k,L-108,y+12,6);
+    const t=el("text",{x:L-10,y:y+15,"font-size":11.5,"text-anchor":"end","font-weight":C[r.k]?600:400},svg);t.textContent=r.n;
+    const x0=x(0),x1=x(r.v);
+    const rect=el("rect",{x:Math.min(x0,x1),y:y+3,width:Math.abs(x1-x0),height:18,rx:2,fill:c},svg);
+    const vt=el("text",{x:r.v<0?x0+6:x1+6,y:y+16,"font-size":11,"text-anchor":"start","font-weight":600},svg);vt.textContent=(r.v>0?"+":"")+fmt(r.v,r.v%1?1:0)+"%";vt.style.fill="var(--ink)";
+    hov(rect,`<b>${r.n}</b><br>${(r.v>0?"+":"")+fmt(r.v,1)}% (2011→2022)`);
+  });
+}
+
+/* ---------- COVERAGE MATRIX ---------- */
+function drawCov(){
+  const mx=$("#covMx");
+  const sp=["Indyki","Brojlery","Trzoda","Bydło"];
+  const data={NL:["full","100%","dane w analizie EMA"],DE:["part","87%*","pokrycie ogólne"],FR:["low","10–30%","CalypsoVet"],PL:["none","niepełne","wyłączone z analizy"]};
+  let h=`<div class="h" role="columnheader"></div>`+sp.map(s=>`<div class="h" role="columnheader">${s}</div>`).join("");
+  ["NL","DE","FR","PL"].forEach(k=>{
+    h+=`<div class="rl" role="rowheader"><span class="cc"><i style="background:var(${C[k]})"></i>${NAME[k]}</span></div>`;
+    sp.forEach(s=>{const d=data[k];h+=`<div class="c ${d[0]}" role="cell" aria-label="${NAME[k]}, ${s}: ${d[1]}"><b>${d[1]}</b><span>${d[2]}</span></div>`});
+  });
+  mx.innerHTML=h;
+  enhanceCountryFlags(mx);
+}
+
+/* ---------- SPECIES TABS ---------- */
+const SP={
+  ind:{intro:"Indyki to w każdym kraju gatunek o najwyższej intensywności wśród drobiu. W Holandii mają też najwyższe użycie leków III wyboru (0,27 DDDA). Obie infografiki z pendrive'a stawiają polskie indyki na pierwszym miejscu, ale na danych niepełnych.",
+    cards:[
+      {k:"NL",big:"8,7",unit:"DDDA · 2024",st:["ok","SDa"],p:"Dni leczenia na zwierzę-rok. Najwyżej w drobiu. Fluorochinolony i cefalosporyny: maks. 0,27 DDDA."},
+      {k:"DE",big:"≥1 000",unit:"indyków · próg raportu",st:["ok","TAMG"],p:"Fermy od 1 000 indyków raportują częstość terapii co pół roku. Tony ze sprzedaży nie przypisują się do gatunku (BVL)."},
+      {k:"FR",big:"10–30%",unit:"pokrycie danych o zużyciu",st:["mid","ANSES"],p:"Tyle obejmują dane o zużyciu dla indyków, kurcząt, świń i bydła. Ekspozycja drobiu ogółem −71% od 2011."},
+      {k:"PL",big:"—",unit:"brak wiarygodnej wartości",st:["no","niepełne"],p:"Dane zgłoszone do EMA oznaczone jako niepełne. Infografika z pendrive'a (19,69 mg/kg) opiera się na tych danych."}]},
+  bro:{intro:"Brojlery to gatunek, w którym szybki cykl i leczenie całych stad przez wodę pitną podnoszą zużycie na kilogram. To też jedyny gatunek, dla którego na pendrivie są pomiary z terenu.",
+    cards:[
+      {k:"NL",big:"5,2",unit:"DDDA · 2024",st:["ok","SDa"],p:"Próg akcji dla fermy brojlerów: 8 DDDAF. Wizyta lekarza obowiązkowa w każdym wstawieniu."},
+      {k:"DE",big:"≥10 000",unit:"brojlerów · próg raportu",st:["ok","TAMG"],p:"Fermy powyżej progu raportują co pół roku. Powyżej trzeciego kwartyla krajowego: pisemny plan redukcji."},
+      {k:"FR",big:"−71%",unit:"ekspozycja drobiu 2011–2024",st:["ok","ANSES"],p:"W 2024 r. ekspozycja drobiu spadła o kolejne 11,6% r/r. Dane gatunkowe do EMA nadal niepełne."},
+      {k:"PL",big:"28,55",unit:"mg/kg · pomiar terenowy, III 2021",st:["mid","1 gmina"],p:"Wyliczone z dokumentacji fermowej przy świadectwach zdrowia. Autor uważa te dokumenty za niewiarygodne."}]},
+  swi:{intro:"Trzoda chlewna w Polsce to leczenie grupowe w okresie poodsadzeniowym: tetracykliny, penicyliny, pleuromutyliny i kolistyna. Tu dwa dokumenty z pendrive'a różnią się stukrotnie.",
+    cards:[
+      {k:"NL",big:"6,6",unit:"DDDA · 2024, sektor",st:["ok","SDa"],p:"Wynik całego sektora (lochy z prosiętami i tuczniki). Wizyta lekarza stada co miesiąc."},
+      {k:"DE",big:"≥250",unit:"tuczników · próg raportu",st:["ok","TAMG"],p:"Częstość terapii osobno dla prosiąt, warchlaków i tuczników. Benchmark medianą i Q3."},
+      {k:"FR",big:"−65%",unit:"ekspozycja 2011–2024",st:["ok","ANSES"],p:"Pokrycie danych o zużyciu u świń w 2024 r. nadal poniżej 30%."},
+      {k:"PL",big:"?",unit:"1,90 czy 180–220 mg/kg",st:["no","sprzeczne"],p:"Infografika: 1,90 mg/kg. Raport .docx: 180–220 mg/kg. Żadna z wartości nie ma podstawy w danych kompletnych."}]},
+  byd:{intro:"Bydło ma najniższą intensywność na kilogram, bo leczy się pojedyncze sztuki, a zwierzęta są ciężkie. Wyjątkiem są cielęta rzeźne, zwłaszcza w Holandii.",
+    cards:[
+      {k:"NL",big:"15,9",unit:"DDDA · cielęta białe",st:["ok","SDa"],p:"Krowy mleczne 3,26, bydło mięsne 0,25. Od 2014 r. selektywne zasuszanie zamiast rutynowego."},
+      {k:"DE",big:"≥20",unit:"opasów · próg raportu",st:["ok","TAMG"],p:"Raportują gospodarstwa z opasami powyżej progu. Nowelizacja TAMG z 2023 r. rozszerzyła monitoring m.in. na krowy mleczne i cielęta."},
+      {k:"FR",big:"+3,3%",unit:"ekspozycja 2023→2024",st:["ok","ANSES"],p:"Jedyny gatunek gospodarski we Francji ze wzrostem w 2024 r. (obok królików +6,7%)."},
+      {k:"PL",big:"0,22 t",unit:"zgłoszone zużycie · 2024",st:["no","niepełne"],p:"Na ok. 6 mln sztuk bydła (wartość z infografiki, zgodna z naszym odczytem raportu). Tak mało nie da się zużyć. To miara braków w raportowaniu."}]}
+};
+function drawSp(k){
+  const d=SP[k]; $("#spIntro").textContent=d.intro;
+  $("#spGrid").innerHTML=d.cards.map(c=>`<div class="sp-card"><div class="top"><span class="cc"><i style="background:var(${C[c.k]})"></i>${NAME[c.k]}</span><span class="stamp ${c.st[0]}">${c.st[0]==="ok"?"✓":c.st[0]==="mid"?"≈":"✗"} ${c.st[1]}</span></div><div><div class="big num">${c.big}</div><div class="unit">${c.unit}</div></div><p>${c.p}</p></div>`).join("");
+  enhanceCountryFlags($("#spGrid"));
+  $$("#spTabs button").forEach(b=>{const on=b.dataset.k===k;b.setAttribute("aria-selected",on);b.tabIndex=on?0:-1});
+  $("#sp-panel").setAttribute("aria-labelledby","tab-"+k);
+}
+
+/* ---------- CLASH CHART ---------- */
+function drawClash(){
+  const box=$("#clashChart");
+  const rows=[
+    {n:"Trzoda · PL",a:1.90,b:[180,220]},{n:"Drób · PL",a:11.08,b:[170,254.7]},{n:"Bydło · PL",a:0.07,b:[30,60]},
+    {n:"Trzoda · NL",a:1.51,b:[40,60]},{n:"Bydło · NL",a:0.28,b:[10,25]},{n:"Trzoda · DE",a:2.50,b:[70,90]}];
+  const W=620,H=rows.length*36+46,L=110,Rm=30;
+  const svg=el("svg",{viewBox:`0 0 ${W} ${H}`,role:"img","aria-label":"Porównanie wartości gatunkowych z dwóch dokumentów, skala logarytmiczna"},box);
+  const lx=v=>L+((Math.log10(v)+2)/(Math.log10(300)+2))*(W-L-Rm);
+  [0.01,0.1,1,10,100].forEach(t=>{el("line",{x1:lx(t),x2:lx(t),y1:24,y2:H-18,class:"gr"},svg);const tt=el("text",{x:lx(t),y:16,"font-size":10,"text-anchor":"middle"},svg);tt.textContent=fmt(t,t<1?(t<0.1?2:1):0)});
+  const ut=el("text",{x:W-Rm,y:H-4,"font-size":10,"text-anchor":"end"},svg);ut.textContent="mg/kg · skala log";
+  rows.forEach((r,i)=>{
+    const y=34+i*36;
+    const t=el("text",{x:L-10,y:y+4,"font-size":11.5,"text-anchor":"end","font-weight":600},svg);t.textContent=r.n;t.style.fill="var(--ink)";
+    el("line",{x1:lx(r.a),x2:lx(r.b[0]),y1:y,y2:y,stroke:"var(--rule-2)","stroke-width":1.5,"stroke-dasharray":"3 3"},svg);
+    const band=el("rect",{x:lx(r.b[0]),y:y-7,width:Math.max(4,lx(r.b[1])-lx(r.b[0])),height:14,rx:3,fill:"var(--pl)"},svg);
+    const dot=el("circle",{cx:lx(r.a),cy:y,r:6,fill:"var(--de)",stroke:"var(--card)","stroke-width":2},svg);
+    const ratio=Math.round(((r.b[0]+r.b[1])/2)/r.a);
+    const rt=el("text",{x:lx(r.b[1])+8,y:y+4,"font-size":10.5},svg);rt.textContent="×"+ratio.toLocaleString("pl-PL");
+    hov(band,`<b>${r.n}</b><br>raport .docx: ${fmt(r.b[0])}–${fmt(r.b[1])} mg/kg`);
+    hov(dot,`<b>${r.n}</b><br>infografika: ${fmt(r.a,2)} mg/kg`);
+  });
+  const lg=el("g",{},svg);
+  el("circle",{cx:L+6,cy:H-8,r:5,fill:"var(--de)"},lg);const l1=el("text",{x:L+16,y:H-4,"font-size":10.5},lg);l1.textContent="infografika ChatGPT";
+  el("rect",{x:L+150,y:H-13,width:18,height:10,rx:2,fill:"var(--pl)"},lg);const l2=el("text",{x:L+174,y:H-4,"font-size":10.5},lg);l2.textContent="raport .docx";
+}
+
+/* ---------- GAP MODEL ---------- */
+const NB={CZ:{t:29.7,b:1.6},SK:{t:11.2,b:0.50},LT:{t:16.3,b:0.61},DE:{t:553.6,b:13.9}};
+const EXCESS=732.1-9.5*46.1; // 294.15
+function gap(){
+  const pct=+$("#nbInt").value; // 0..100 maps from 20 to 76.9
+  const inten=20+pct/100*(76.9-20);
+  $("#nbIntV").textContent=fmt(inten)+" mg/kg";
+  let sum=0,parts=[];
+  [["CZ","#nbCZ","Czechy"],["SK","#nbSK","Słowacja"],["LT","#nbLT","Litwa"],["DE","#nbDE","Niemcy"]].forEach(([k,id,n])=>{if(!$(id).checked)return;const need=inten*NB[k].b, extra=Math.max(0,need-NB[k].t);sum+=extra;parts.push(`${n} ${fmt(extra,0)} t`)});
+  const share=Math.min(1,sum/EXCESS);
+  $("#h1read").innerHTML=`Nadwyżka możliwa do wyjaśnienia wywozem: <b>${fmt(sum,0)} t</b> z ${fmt(EXCESS,0)} t (<b>${fmt(share*100,0)}%</b>).<br><span style="color:var(--muted)">${parts.join(" · ")||"zaznacz co najmniej jeden kraj"}</span>`;
+  const stamp=$("#h1stamp"); stamp.className="stamp "+(share>=0.9?"ok":share>=0.25?"mid":"no"); stamp.textContent=share>=0.9?"wyjaśnia całość":share>=0.25?"wyjaśnia część":"wyjaśnia mało";
+  // 74 ciężarówki: jedna pełna ikona = 10 ton, ostatnia = 2,1 t
+  const box=$("#gapBar"),base=9.5*46.1,ex=Math.min(sum,EXCESS),rest=EXCESS-ex,total=732.1,units=Math.ceil(total/10);
+  const truck=`<svg viewBox="0 0 52 34" aria-hidden="true"><path d="M3 8h29v17H3zM32 14h10l7 8v3H32z" fill="currentColor"/><path d="M36 17h6l3 5h-9z" fill="var(--card)" opacity=".72"/><circle cx="13" cy="27" r="5" fill="var(--ink)"/><circle cx="13" cy="27" r="2" fill="var(--card)"/><circle cx="40" cy="27" r="5" fill="var(--ink)"/><circle cx="40" cy="27" r="2" fill="var(--card)"/></svg>`;
+  let trucks="";
+  for(let i=0;i<units;i++){const mid=i*10+5,kind=mid<=base?"base":mid<=base+ex?"export":"rest",amount=i===units-1?2.1:10;trucks+=`<span class="truck-unit ${kind}" style="animation-delay:${Math.min(i*12,500)}ms;${i===units-1?"opacity:.55":""}" title="${fmt(amount,1)} t" aria-hidden="true">${truck}</span>`}
+  box.innerHTML=`<div class="truck-chart" role="img" aria-label="732 tony sprzedaży pokazane jako 74 ciężarówki; każda pełna ciężarówka oznacza 10 ton">${trucks}</div><div class="truck-labels"><span><i style="background:var(--cube-base)"></i>${fmt(base,0)} t · poziom średniej UE</span><span><i style="background:var(--fr)"></i>${fmt(ex,0)} t · możliwy wywóz</span><span><i style="background:var(--pl)"></i>${fmt(rest,0)} t · reszta nadwyżki</span></div>`;
+  $("#gapVerdict").innerHTML=`Nawet gdyby Czesi, Słowacy i Litwini leczyli tak intensywnie jak średnia UE i wszystko, czego im brakuje, kupowali w Polsce, wywóz wyjaśnia ok. 68 t, czyli mniej niż jedną czwartą nadwyżki. Przy założeniu, że leczą tak intensywnie jak Polska (76,9 mg/kg), wychodzi ok. 150 t, połowa. Pozostałe ${fmt(Math.max(0,EXCESS-150),0)}–${fmt(EXCESS-68,0)} t zostaje po stronie krajowej: w realnym zużyciu, którego nie widać w ewidencji (H2), albo w efektach metody (H3). Rozstrzygnąć to może tylko kompletne raportowanie zużycia na poziomie fermy.`;
+}
+
+/* ---------- FIELD CHART ---------- */
+function drawField(){
+  const box=$("#fieldChart");
+  const rows=[{n:"Kaczki III 2021",v:2.97,c:"var(--nl)"},{n:"Kaczki IV–V 2022",v:6,c:"var(--nl)"},{n:"Drób ogółem III 2021",v:8.26,c:"var(--nl)"},{n:"Brojlery III 2021",v:28.55,c:"var(--nl)"},{n:"PL 2017, sprzedaż",v:165,c:"var(--pl)"},{n:"PL, sprzedaż (pisma)",v:190,c:"var(--pl)"}];
+  const W=340,H=rows.length*26+30,L=132,Rm=34;
+  const svg=el("svg",{viewBox:`0 0 ${W} ${H}`,role:"img","aria-label":"Zużycie z dokumentacji fermowej wobec średniej ze sprzedaży, skala logarytmiczna"},box);
+  const lx=v=>L+((Math.log10(v)-0)/(Math.log10(300)))*(W-L-Rm);
+  [1,10,100].forEach(t=>{el("line",{x1:lx(t),x2:lx(t),y1:16,y2:H-6,class:"gr"},svg);const tt=el("text",{x:lx(t),y:11,"font-size":9.5,"text-anchor":"middle"},svg);tt.textContent=t});
+  rows.forEach((r,i)=>{const y=22+i*26;const t=el("text",{x:L-6,y:y+11,"font-size":10,"text-anchor":"end"},svg);t.textContent=r.n;
+    const rect=el("rect",{x:L,y:y+2,width:lx(r.v)-L,height:13,rx:2,fill:r.c},svg);
+    const vt=el("text",{x:lx(r.v)+4,y:y+12,"font-size":10,"font-weight":600},svg);vt.textContent=fmt(r.v,r.v%1?2:0).replace(",00","");vt.style.fill="var(--ink)";
+    hov(rect,`<b>${r.n}</b><br>${fmt(r.v,2)} mg/kg`)});
+}
+
+/* ---------- CLINIC ---------- */
+const CLIN={grp:[{n:"Psy",v:16.4,sys:14.4,cnt:7909},{n:"Koty",v:30.9,sys:27.5,cnt:1770},{n:"Drób i gołębie",v:34.1,sys:33.7,cnt:738},{n:"Inne",v:24.0,sys:20.0,cnt:150}],
+  ameg:{"Psy":{B:74,C:97,D:986,T:177},"Koty":{B:25,C:36,D:432,T:71},"Drób i gołębie":{B:98,C:98,D:69,T:3}},
+  years:[[2014,1095,17.6],[2015,1702,17.7],[2016,1461,17.5],[2017,778,13.6],[2018,766,21.5],[2019,776,20.2],[2020,713,25.7],[2021,491,22.6],[2022,811,26.0],[2023,847,25.9],[2024,596,16.6],[2025,362,27.6],[2026,169,20.1]]};
+function drawClinic(){
+  // group bars
+  let box=$("#clinGrp"); const W=520,rh=38,H=CLIN.grp.length*rh+30,L=118,Rm=60;
+  let svg=el("svg",{viewBox:`0 0 ${W} ${H}`,role:"img","aria-label":"Udział wizyt z antybiotykiem według grupy zwierząt"},box);
+  const x=v=>L+(v/40)*(W-L-Rm);
+  [0,10,20,30,40].forEach(t=>{el("line",{x1:x(t),x2:x(t),y1:16,y2:H-4,class:"gr"},svg);const tt=el("text",{x:x(t),y:11,"font-size":10,"text-anchor":"middle"},svg);tt.textContent=t+"%"});
+  CLIN.grp.forEach((g,i)=>{const y=20+i*rh;
+    const t=el("text",{x:L-8,y:y+14,"font-size":11.5,"text-anchor":"end","font-weight":600},svg);t.textContent=g.n;t.style.fill="var(--ink)";
+    const s=el("text",{x:L-8,y:y+27,"font-size":9.5,"text-anchor":"end"},svg);s.textContent=g.cnt.toLocaleString("pl-PL")+" wizyt";
+    const r=el("rect",{x:L,y:y+4,width:x(g.v)-L,height:20,rx:3,fill:i===2?"var(--pl)":"var(--de)"},svg);
+    const vt=el("text",{x:x(g.v)+6,y:y+18,"font-size":11.5,"font-weight":600},svg);vt.textContent=fmt(g.v)+"%";vt.style.fill="var(--ink)";
+    hov(r,`<b>${g.n}</b><br>${fmt(g.v)}% wizyt z antybiotykiem<br>${fmt(g.sys)}% ogólnie działającym`)});
+  // ameg stacked
+  box=$("#clinAmeg"); const keys=Object.keys(CLIN.ameg); const H2=keys.length*44+28;
+  svg=el("svg",{viewBox:`0 0 ${W} ${H2}`,role:"img","aria-label":"Udział kategorii AMEG we wpisach leczenia"},box);
+  const L2=118,xs=v=>L2+v*(W-L2-10);
+  [0,.25,.5,.75,1].forEach(t=>{el("line",{x1:xs(t),x2:xs(t),y1:14,y2:H2-4,class:"gr"},svg);const tt=el("text",{x:xs(t),y:10,"font-size":10,"text-anchor":"middle"},svg);tt.textContent=Math.round(t*100)+"%"});
+  const colr={B:"var(--bad)",C:"var(--warn)",D:"var(--good)",T:"var(--eu)"}, lab={B:"B · ograniczać",C:"C · ostrożnie",D:"D · rozważnie",T:"miejscowe"};
+  keys.forEach((k,i)=>{const d=CLIN.ameg[k],tot=d.B+d.C+d.D+d.T,y=20+i*44;let acc=0;
+    const t=el("text",{x:L2-8,y:y+16,"font-size":11.5,"text-anchor":"end","font-weight":600},svg);t.textContent=k;t.style.fill="var(--ink)";
+    const s=el("text",{x:L2-8,y:y+29,"font-size":9.5,"text-anchor":"end"},svg);s.textContent=tot.toLocaleString("pl-PL")+" wpisów";
+    ["B","C","D","T"].forEach(c=>{const f=d[c]/tot;const r=el("rect",{x:xs(acc),y:y+4,width:Math.max(0,xs(acc+f)-xs(acc)-2),height:24,rx:2,fill:colr[c]},svg);
+      if(f>0.09){const vt=el("text",{x:xs(acc+f/2),y:y+20,"font-size":10.5,"text-anchor":"middle","font-weight":600},svg);vt.textContent=Math.round(f*100)+"%";vt.style.fill="#fff"}
+      hov(r,`<b>${k}</b> · ${lab[c]}<br>${d[c]} wpisów (${fmt(f*100)}%)`);acc+=f});
+  });
+  // years
+  box=$("#clinYear"); const Y=CLIN.years, H3=200, L3=40, R3=14, T3=14, B3=28;
+  svg=el("svg",{viewBox:`0 0 ${W} ${H3}`,role:"img","aria-label":"Odsetek wizyt z antybiotykiem w kolejnych latach"},box);
+  const xy=i=>L3+i*((W-L3-R3)/(Y.length-1)), yy=v=>T3+(1-v/30)*(H3-T3-B3);
+  [0,10,20,30].forEach(t=>{el("line",{x1:L3,x2:W-R3,y1:yy(t),y2:yy(t),class:"gr"},svg);const tt=el("text",{x:L3-6,y:yy(t)+3,"font-size":10,"text-anchor":"end"},svg);tt.textContent=t+"%"});
+  let dA=`M${xy(0)},${yy(0)}`,dL="";Y.forEach((r,i)=>{dA+=` L${xy(i)},${yy(r[2])}`;dL+=(i?" L":"M")+`${xy(i)},${yy(r[2])}`});dA+=` L${xy(Y.length-1)},${yy(0)} Z`;
+  el("path",{d:dA,fill:"var(--de)","fill-opacity":0.12},svg); el("path",{d:dL,fill:"none",stroke:"var(--de)","stroke-width":2},svg);
+  Y.forEach((r,i)=>{if(i%2===0||i===Y.length-1){const tt=el("text",{x:xy(i),y:H3-8,"font-size":10,"text-anchor":"middle"},svg);tt.textContent=r[0]}
+    const c=el("circle",{cx:xy(i),cy:yy(r[2]),r:i===Y.length-1?5:3.5,fill:"var(--de)",stroke:"var(--card)","stroke-width":1.5},svg);
+    const hit=el("rect",{x:xy(i)-14,y:T3,width:28,height:H3-T3-B3,fill:"transparent"},svg);
+    hov(hit,`<b>${r[0]}</b>${i===Y.length-1?" (do IX)":""}<br>${fmt(r[2])}% z ${r[1].toLocaleString("pl-PL")} wizyt`)});
+}
+
+/* ---------- TIMELINE ---------- */
+const TL=[
+  ["2006","eu","UE","Zakaz antybiotykowych stymulatorów wzrostu w paszach."],
+  ["2011","eu","EMA","Start porównywalnego monitoringu sprzedaży (ESVAC). Polska: 126,3 mg/PCU, średnia 161,4."],
+  ["2013","nl","Holandia","Leki III wyboru tylko po antybiogramie. Rok później selektywne zasuszanie krów."],
+  ["2014","de","Niemcy","16. nowela AMG: częstość terapii, mediana i Q3, plany redukcji dla ferm."],
+  ["2020","pl","Polska","187,9 mg/PCU. Polska jednym z 5 krajów (na 31) ze wzrostem od 2011."],
+  ["2021","eu","UE","21 IV: stosowanie Prawa o zdrowiu zwierząt (2016/429), obowiązki lekarzy stada."],
+  ["2022","eu","UE","28 I: stosowanie rozp. 2019/6. Zakaz rutynowej profilaktyki, metafilaktyka tylko wyjątkowo, recepta na antybiotyk ważna 5 dni. Polska 2022: 196,0 mg/PCU."],
+  ["2024","pl","Polska","Pierwsze zbieranie danych o zużyciu za 2023 r. GIW: system teleinformatyczny w przygotowaniu, dokumentacja u hodowcy."],
+  ["2025","eu","EMA","IV: pierwszy raport ESUAvet (dane 2023). VI–VII: komunikaty KRLW o aplikacjach."],
+  ["2026","pl","Polska","Raport ESUAvet 2024: PL 76,9 mg/kg, dane o zużyciu niepełne. IV: pismo KRIR, MRiRW broni metodologii."],
+  ["2030","eu","UE","Cel −50% sprzedaży względem 2018 r.; raportowanie zużycia także dla psów i kotów."]];
+function drawTL(){$("#tl").innerHTML=TL.map(r=>`<div class="tl-row ${r[1]}"><div class="tl-y">${r[0]}</div><div class="tl-dot"></div><div class="tl-body"><span class="who">${r[2]}</span>${r[3]}</div></div>`).join("")}
+
+/* ---------- LEDGER ---------- */
+const LED=[
+  ["ok","Infografika ChatGPT, strona ANTYBIOTYKOWE.html","Sprzedaż 2024: PL 76,9, DE 39,8, NL 24,5, UE 46,1 mg/kg.","Zgodne z tabelą 2 raportu ESUAvet 2024. Stopka infografiki błędnie podpisuje źródło jako ESVAC; to raport ESUAvet."],
+  ["ok","Raport .docx, izby rolnicze, „Życie Wet.” 7/2025","Polska 2022: 196 mg/PCU, wzrost o 55% względem 2011 (126,3).","Zgodne z kilkoma niezależnymi odczytami raportu ESVAC. Wartość z 2011 r. potwierdza tabela w „Życiu Wet.” 7/2022."],
+  ["ok","Artykuł Vetpol (EMA 2023)","98% sprzedaży antybiotyków weterynaryjnych dotyczy zwierząt gospodarskich.","Potwierdza EMA dla 2023 i 2024 (w 2024 r. zwierzęta towarzyszące: 1,5% ton)."],
+  ["ok","„Życie Wet.” 9/2020","Holandia: wizyty lekarza stada co wsad brojlerów, co miesiąc u świń, co 3 miesiące u bydła.","Opis systemu zgodny z raportami SDa; progi akcji (8 DDDAF brojlery, 23 cielęta białe) potwierdza raport SDa 2024."],
+  ["mid","Raport .docx","Niemcy obniżyły zużycie o ponad 50% do 83,8 mg/PCU (2020), poniżej średniej UE „wynoszącej 83,8”.","Spadek potwierdza BVL (−67% ton 2011–2024). Zdanie myli wartość Niemiec ze średnią UE, a rok 2020 zestawia z polskim i holenderskim 2022."],
+  ["mid","Pisma izb rolniczych (LIR 2024, KRIR 2026)","Wskaźnik zawyżają leki sprzedane w Polsce i zużyte w Czechach, na Słowacji.","Mechanizm możliwy, ale policzalny. Model w rozdz. E: najwyżej ok. 23–51% nadwyżki przy skrajnych założeniach."],
+  ["mid","Pisma z terenu 2021–2022","Zużycie z dokumentacji ferm drobiu: 2,97–28,55 mg/kg, kilkadziesiąt razy mniej niż średnia ze sprzedaży.","Pomiary własne w jednej gminie, bez możliwości sprawdzenia. Kierunek zgodny z tym, co pokazuje EMA: polskie dane o zużyciu są niepełne."],
+  ["no","Raport .docx","Zużycie gatunkowe w PL: trzoda 180–220, drób 170–255, bydło 30–60 mg/kg; UE: świnie 173,1 mg/PCU.","Brak źródła pierwotnego. Wartości „173,1” i „59,6” pochodzą z globalnych modeli, nie ze średniej UE. Mieszanie mg/kg z mg/PCU."],
+  ["no","Infografika ChatGPT","Zużycie PL: bydło 0,07, trzoda 1,90, kurczęta 9,67, indyki 19,69 mg/kg.","Dane niepełne, wyłączone przez EMA z analizy. Biomasy gatunków w infografice dla DE i NL przekraczają całkowitą biomasę tych krajów w raporcie."],
+  ["no","Pisma z terenu","Polska jest jedynym krajem UE, w którym zużycie rośnie.","W latach 2011–2020 wzrost odnotowało 5 z 31 krajów, w tym Polska (Pejsak, Zalewski 2022)."],
+  ["no","Pisma z terenu","UE wymaga obniżenia do 50 mg/kg masy ciała do 2030 r.","Cel jest względny: −50% sprzedaży względem 2018 r. dla całej UE. Nie ma normy 50 mg/kg."],
+  ["no","Strona interaktywna z pendrive'a","Polska 196, Niemcy 83,8, Holandia 37 mg/PCU jako jedno porównanie.","Zestawia lata 2022, 2020 i 2022. Liczby osobno są bliskie źródeł, porównanie jest niejednorodne."]];
+function drawLedger(f){
+  const icon={ok:"✓ potwierdzone",mid:"≈ częściowo",no:"✗ odrzucone"};
+  $("#ledger").innerHTML=LED.filter(r=>f==="all"||r[0]===f).map(r=>`<div class="lrow"><div class="src">${r[1]}</div><div class="claim">${r[2]}</div><div class="verdict"><span class="stamp ${r[0]}">${icon[r[0]]}</span><br>${r[3]}</div></div>`).join("");
+}
+
+/* ---------- NAV HIGHLIGHT ---------- */
+function navSpy(){
+  const secs=$$("section.ch"); const links=[...$$("#idx a"),...$$(".chipnav a")];
+  const io=new IntersectionObserver(es=>{es.forEach(e=>{if(e.isIntersecting){const id=e.target.id;links.forEach(a=>a.classList.toggle("on",a.getAttribute("href")==="#"+id))}})},{rootMargin:"-40% 0px -55% 0px"});
+  secs.forEach(s=>io.observe(s));
+}
+
+function initReadingControls(){
+  const root=document.documentElement,sizeBtns=$$(".top-tools [data-size]"),themeBtn=$("#themeToggle");
+  sizeBtns.forEach(b=>b.addEventListener("click",()=>{root.dataset.fontSize=b.dataset.size;sizeBtns.forEach(x=>x.setAttribute("aria-pressed",x===b))}));
+  themeBtn.addEventListener("click",()=>{const dark=root.dataset.theme?root.dataset.theme==="dark":matchMedia("(prefers-color-scheme: dark)").matches;root.dataset.theme=dark?"light":"dark";themeBtn.setAttribute("aria-pressed",String(!dark));themeBtn.textContent=dark?"◐":"☀"});
+}
+
+/* ---------- INIT ---------- */
+drawFour(); drawRank("2024"); drawChange(); drawCov(); drawSp("ind"); drawClash(); drawField(); drawClinic(); drawTL(); drawLedger("all");
+$("#nbInt").addEventListener("input",gap); ["#nbCZ","#nbSK","#nbLT","#nbDE"].forEach(s=>$(s).addEventListener("change",gap)); gap();
+decoratePage(); initReadingControls();
+$$("#spTabs button").forEach(b=>{b.addEventListener("click",()=>drawSp(b.dataset.k));b.addEventListener("keydown",e=>{const ks=["ind","bro","swi","byd"];let i=ks.indexOf(b.dataset.k);if(e.key==="ArrowRight")i=(i+1)%4;else if(e.key==="ArrowLeft")i=(i+3)%4;else return;drawSp(ks[i]);$("#tab-"+ks[i]).focus()})});
+$$("#ledgerSeg button").forEach(b=>b.addEventListener("click",()=>{$$("#ledgerSeg button").forEach(x=>x.setAttribute("aria-pressed",x===b));drawLedger(b.dataset.k)}));
+navSpy();
+let cubes,europe;
+try{cubes=initCubes()}catch(e){console.warn(e)}
+try{europe=initEurope()}catch(e){console.warn(e)}
+const refresh=()=>{cubes&&cubes.refresh&&cubes.refresh();europe&&europe.refresh&&europe.refresh()};
+matchMedia("(prefers-color-scheme: dark)").addEventListener("change",refresh);
+new MutationObserver(refresh).observe(document.documentElement,{attributes:true,attributeFilter:["data-theme"]});
+})();
+</script>
+</body></html>
